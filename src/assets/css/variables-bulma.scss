@@ -1,0 +1,193 @@
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all";
+@import "~vue-sidebar-menu/src/scss/variables";
+
+
+$primary-hue: 200;
+$foreground-color: hsl($primary-hue, 15, 5);
+$background-color: hsl($primary-hue, 10, 100);
+$accent-color: hsl($primary-hue, 100, 50);
+
+// Set your colors
+$primary: $accent-color;
+$primary-invert: findColorInvert($primary);
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: (
+        "white": ($white, $black),
+        "black": ($black, $white),
+        "light": ($light, $light-invert),
+        "dark": ($dark, $dark-invert),
+        "primary": ($primary, $primary-invert),
+        "info": ($info, $info-invert),
+        "success": ($success, $success-invert),
+        "warning": ($warning, $warning-invert),
+        "danger": ($danger, $danger-invert),
+);
+// General colors
+
+$background: $background-color;
+
+$border: lighten($background-color, 15);
+$border-hover: lighten($background-color, 10);
+
+// Text colors
+
+$text: lighten($foreground-color, 0);
+$text-invert: findColorInvert($text);
+$text-light: lighten($foreground-color, 5);
+$text-strong: darken($foreground-color, 5);
+
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+// Generic
+
+$body-background-color: $background-color;
+$body-size: 14px;
+$body-min-width: 300px;
+$body-rendering: optimizeLegibility;
+$body-family: $family-primary;
+$body-overflow-x: hidden;
+$body-overflow-y: scroll;
+
+$body-color: $text;
+$body-font-size: 1em;
+$body-weight: $weight-normal;
+$body-line-height: 1.5;
+
+$code-family: $family-code;
+$code-padding: 0.25em 0.5em 0.25em;
+$code-weight: normal;
+$code-size: 0.875em;
+
+$small-font-size: 0.875em;
+
+$hr-background-color: $background;
+$hr-height: 2px;
+$hr-margin: 1.5rem 0;
+
+$strong-color: $text-strong;
+$strong-weight: $weight-bold;
+
+$pre-font-size: 0.875em;
+$pre-padding: 1.25rem 1.5rem;
+$pre-code-font-size: 1em;
+
+// Colors
+
+$black:        hsl(0, 0%, 4%) ;
+$black-bis:    hsl(0, 0%, 7%) ;
+$black-ter:    hsl(0, 0%, 14%) ;
+
+$grey-darker:  hsl(0, 0%, 21%) ;
+$grey-dark:    hsl(0, 0%, 29%) ;
+$grey:         hsl(0, 0%, 48%) ;
+$grey-light:   hsl(0, 0%, 71%) ;
+$grey-lighter: hsl(0, 0%, 86%) ;
+
+$white-ter:    hsl(0, 0%, 96%) ;
+$white-bis:    hsl(0, 0%, 98%) ;
+$white:        hsl(0, 0%, 100%) ;
+
+$orange:       hsl(14,  100%, 53%) ;
+$yellow:       hsl(48,  100%, 67%) ;
+$green:        hsl(141, 71%,  48%) ;
+$turquoise:    hsl(171, 100%, 41%) ;
+$cyan:         hsl(204, 86%,  53%) ;
+$blue:         hsl(217, 71%,  53%) ;
+$purple:       hsl(271, 100%, 71%) ;
+$red:          hsl(348, 100%, 61%) ;
+
+// Typography
+
+$family-sans-serif: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif ;
+$family-monospace: monospace ;
+$render-mode: optimizeLegibility ;
+
+$size-1: 3rem ;
+$size-2: 2.5rem ;
+$size-3: 2rem ;
+$size-4: 1.5rem ;
+$size-5: 1.25rem ;
+$size-6: 1rem ;
+$size-7: 0.75rem ;
+
+$weight-light: 300 ;
+$weight-normal: 400 ;
+$weight-medium: 500 ;
+$weight-semibold: 600 ;
+$weight-bold: 700 ;
+
+// Spacing
+
+$block-spacing: 1.5rem ;
+
+// Responsiveness
+
+// The container horizontal gap, which acts as the offset for breakpoints
+$gap: 32px ;
+// 960, 1152, and 1344 have been chosen because they are divisible by both 12 and 16
+$tablet: 769px ;
+// 960px container + 4rem
+$desktop: 960px + (2 * $gap) ;
+// 1152px container + 4rem
+$widescreen: 1152px + (2 * $gap) ;
+$widescreen-enabled: true ;
+// 1344px container + 4rem
+$fullhd: 1344px + (2 * $gap) ;
+$fullhd-enabled: true ;
+
+// Miscellaneous
+
+$easing: ease-out ;
+$radius-small: 0px ;
+$radius: 0px ;
+$radius-large: 0px ;
+$radius-rounded: 0px ;
+$speed: 86ms ;
+
+// Flags
+
+$variable-columns: true ;
+
+
+
+/*=========================== Vue Sidebar Menu variables =============================*/
+$primary-color: $accent-color;
+$base-bg: $foreground-color;
+
+$item-color: $background-color;
+
+$item-active-color: $background-color;
+
+$item-open-color: $background-color;
+$item-open-bg: $primary-color;
+
+$item-hover-color: $background-color;
+$item-hover-bg: rgba(darken($base-bg, 5%), 0.5);
+
+$icon-color: $background-color;
+$icon-bg: darken($base-bg, 5%);
+
+$icon-active-color: $background-color;
+$icon-active-bg: $icon-bg;
+
+$icon-open-color: $background-color;
+$icon-open-bg: transparent;
+
+$mobile-item-color: $background-color;
+$mobile-icon-color: $background-color;
+$mobile-item-bg: $primary-color;
+$mobile-icon-bg: $icon-open-bg;
+
+$dropdown-bg: lighten($base-bg, 5%);
+$dropdown-color: $background-color;
+
+$item-font-size: 14px;
+$item-line-height: 25px;
+$item-padding: 5px 10px;
+$icon-height: 25px;
+$icon-width: 25px;
