@@ -3,6 +3,16 @@
     src: url('../fonts/Scorchedearth-4Ljp.otf');
 }
 
+@font-face {
+    font-family: 'StencilArmy';
+    src: url('../fonts/Stencil Army WW I.ttf');
+}
+
+@font-face {
+    font-family: 'NeonMachine';
+    src: url('../fonts/NeonMachine-n6Bg.ttf');
+}
+
 
 .background {
     background-color: #0a0a0a;
@@ -18,7 +28,7 @@
 }
 
 .scoreboard {
-    width: 80%;
+    width: 90%;
     min-width: 1200px;
     height: 96%;
     /* transform: skew(-15deg, 0deg); */
@@ -34,12 +44,12 @@
     color: #ffffff;
     text-shadow: 0px 0px 30px #ffffff85;
     font-weight: lighter;
-    font-family: Scorchedearth, sans-serf;
+    font-family: Scorchedearth, sans-serif;
     letter-spacing: .1em;
 }
 
 .team-box {
-    width: 24em;
+    width: 28em;
     margin: 5px 0px;
     display: flex;
     justify-content: space-between;
@@ -59,8 +69,11 @@
     line-height: 3em;
     text-align: center;
     font-size: 1.2em;
-    border-radius: 3em;
+    /*border-radius: 3em;*/
     box-shadow: 0px 3px 10px -5px black;
+    font-family: "NeonMachine", sans-serif;
+    transform: scale(1.05) translateY(-2.5%);
+
 }
 
 .blue-list .points {
@@ -76,30 +89,39 @@
 }
 
 .team-name {
-    font-weight: bold;
+    font-weight: lighter;
+    font-size: 1.2em;
     color: white;
     letter-spacing: 1px;
-    padding: 10px 5em;
+    font-family: "NeonMachine", sans-serif;
+}
+
+.red-list .team-name {
+    padding-right: 4em;
+}
+
+.blue-list .team-name {
+    padding-left: 4em;
 }
 
 .team-box:nth-child(1) {
     font-size: 1.5em;
-    width: 27em;
+    width: 30em;
 }
 
 .team-box:nth-child(2) {
     font-size: 1.3em;
-    width: 25.5em;
+    width: 28.5em;
 }
 
 .team-box:nth-child(3) {
     font-size: 1.2em;
-    width: 24em;
+    width: 27em;
 }
 
 .team-box:nth-child(4) {
     font-size: 1.1em;
-    width: 23em;
+    width: 26em;
 }
 
 .red-list {
