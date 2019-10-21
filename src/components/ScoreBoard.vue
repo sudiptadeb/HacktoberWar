@@ -8,92 +8,20 @@
 				</div>
 				<div class="sb-list layout-row layout-align-space-between-start">
 					<div class="red-list">
-						<div class="team-box">
-							<div class="points">120</div>
-							<div class="team-name">Team Venom</div>
-						</div>
-						<div class="team-box">
-							<div class="points">100</div>
-							<div class="team-name">Bad Boys</div>
-						</div>
-						<div class="team-box">
-							<div class="points">90</div>
-							<div class="team-name">Cute Girls</div>
-						</div>
-						<div class="team-box">
-							<div class="points">80</div>
-							<div class="team-name">Vetti Pasanga</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">Peru Illa</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">Naughty Kamanati</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">House Wives</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">Peru Illa</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">Naughty Kamanati</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">House Wives</div>
+						<div class="team-box" v-for="team in rteams">
+							<div class="points">{{team.score}}</div>
+							<div class="team-name">{{tema.name}}</div>
 						</div>
 					</div>
 					<div class="blue-list">
-						<div class="team-box">
-							<div class="points">120</div>
-							<div class="team-name">Team Venom</div>
-						</div>
-						<div class="team-box">
-							<div class="points">100</div>
-							<div class="team-name">Bad Boys</div>
-						</div>
-						<div class="team-box">
-							<div class="points">90</div>
-							<div class="team-name">Cute Girls</div>
-						</div>
-						<div class="team-box">
-							<div class="points">80</div>
-							<div class="team-name">Vetti Pasanga</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">Peru Illa</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">Naughty Kamanati</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">House Wives</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">Peru Illa</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">Naughty Kamanati</div>
-						</div>
-						<div class="team-box">
-							<div class="points">70</div>
-							<div class="team-name">House Wives</div>
+						<div class="team-box" v-for="team in bteams">
+							<div class="points">{{team.score}}</div>
+							<div class="team-name">{{tema.name}}</div>
 						</div>
 					</div>
 				</div>
 				<div class="sb-footer">
-					Footer
+					
 				</div>
 			</div>
 		</div>
@@ -101,9 +29,44 @@
 </template>
 
 <script>
-
+	import axios from "axios";
     export default {
-        name: "ScoreBoard"
+        name: "ScoreBoard",
+        data() {
+            return {
+                rteams: [],
+                bteams: [],
+                isLoading: false,
+                errorOccurred: false,
+                errorReason: null
+            }
+        },
+        created() {
+            this.getAllDetails();
+        },
+        methods: {
+            getAllDetails() {
+                this.getDetails();
+            },
+            getDetails() {
+                this.isLoading = true;
+                this.errorOccurred = false;
+                let self = this;
+                axios.get('api/v1/device')
+                    .then(response => {
+                        self.rteams = response.data.rteams;
+                        self.bteams = response.data.bteams;
+                    })
+                    .catch(reason => {
+                        self.errorReason = reason;
+                        self.errorOccurred = true;
+                    })
+                    .finally(function () {
+                        self.isLoading = false;
+                    });
+            }
+        }
+        
     }
 </script>
 
