@@ -265,6 +265,15 @@ export default class AttackMap{
 
         let track = this.svg.append("g").attr('class','track') .attr('transform',attackPos);
 
+        let cloudSize = 10;
+        let cloudLength=0;
+        let heightEl = 0;
+
+        let trackPath = track.append('path')
+            .attr('d',`M0,0 C -${cloudLength/2} ,${heightEl},   -${cloudLength/2} , ${heightEl} ,-${cloudLength},0`)
+            .attr('stroke','#fdea41')
+            .attr('stroke-width',cloudSize)
+            .attr('fill','transparent')
 
         let attack = this.svg.append("g") .attr('transform',attackPos);
 
@@ -302,7 +311,6 @@ export default class AttackMap{
         const t = this.svg.transition().duration(time);
 
         let maxElevation = radius/(Math.PI*2)
-        let transitionCount =0;
         attack.transition(t)
             .ease(d3.easeLinear)
             .tween("data", () => { // NO I18N
@@ -320,57 +328,22 @@ export default class AttackMap{
                     currentAngle = 0 - Math.pow(t,exponent) * (intialAngle);
                     translate = maxElevation - Math.pow(t,exponent) * (maxElevation);
                 }
-                transitionCount++;
-
-                if(transitionCount%4===0){
-
-                    let cloudWidth = 30;
-                    // track.append("use") // NO I18N
-                    //     .attr('transform',`translate(${currentRadius},${translate*elevationFactor-astroidWidth/2}) rotate(${currentAngle*elevationFactor}) translate(${cloudWidth/2}px,-${cloudWidth/2}px) `)
-                    //
-                    //     // .attr('style',`transform : translate(${cloudWidth/2}px,-${cloudWidth/2}px)  rotate(90deg)`)
-                    //     .attr('xlink:href',d=>`#symbol-icon-cloud`) // NO I18N
-                    //     .attr('width',cloudWidth) // NO I18N
-                    //     .attr('height',cloudWidth) // NO I18N
-                    //
-                    let cloudSize = 10;
-                    let cloudLength=150;
-                    let heightEl = ((maxElevation-translate)*cloudLength/(radius))*elevationFactor;
-                   let gg= track.append('g')
-                        .attr('transform',`translate(${currentRadius},${translate*elevationFactor-cloudSize/2}) rotate(${currentAngle*elevationFactor})`)
-
-                    gg.append('path')
-                        .attr('d',`M0,0 C -${cloudLength/2} ,${heightEl},   -${cloudLength/2} , ${heightEl} ,-${cloudLength},0`)
-                        .attr('stroke','#fdea41')
-                        .attr('stroke-width',cloudSize)
-                        .attr('fill','transparent')
-                    // gg.append('circle')
-                    //     .attr('fill','#fdea41')
-                    //     .attr('r',cloudSize/2)
-                    //     .attr('cx',-cloudSize/2)
-                    //     .attr('cy',-cloudSize/2)
 
 
-                    // gg.append('circle')
-                    //     .attr('fill','#fdea41')
-                    //     .attr('r',cloudSize/4)
-                    //     .attr('cy',-cloudSize/4)
-                    // gg.append('circle')
-                    //     .attr('fill','#fdea41')
-                    //     .attr('r',cloudSize/4)
-                    //     .attr('cx',cloudSize/4)
-                    // gg.append('circle')
-                    //     .attr('fill','#fdea41')
-                    //     .attr('r',cloudSize/4)
-                    //     .attr('cy',cloudSize/4)
-                    // gg.append('circle')
-                    //     .attr('fill','#fdea41')
-                    //     .attr('r',cloudSize/4)
-                    //     .attr('cx',-cloudSize/4)
 
-                }
+                     cloudSize = 10;
+                    let cloudLength=currentRadius;
+                    let heightEl = (maxElevation*time)*elevationFactor;
+                    trackPath
+                        .attr('d',`M0,0 
+                        C   ${cloudLength/2} ,${heightEl+translate*elevationFactor},   
+                            ${cloudLength/2} , ${heightEl+translate*elevationFactor} ,
+                            ${cloudLength},${translate*elevationFactor}`)
 
-// console.log('currentAngle',currentAngle,elevationFactor);
+
+
+
+
                 return `${attackPos} translate(${currentRadius},${translate*elevationFactor}) rotate(${currentAngle*elevationFactor})`;
             })
             // .select('path')
