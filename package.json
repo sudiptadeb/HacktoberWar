@@ -17,6 +17,8 @@
     "buefy": "^0.8.2",
     "bulma": "^0.7.5",
     "line-awesome": "^1.0.2",
+    "lodash": "^4.17.15",
+    "p5": "^0.10.2",
     "vue": "^2.6.10",
     "vue-code-highlight": "^0.7.2",
     "vue-router": "^3.1.2",

@@ -13,18 +13,60 @@
     src: url('../fonts/NeonMachine-n6Bg.ttf');
 }
 
+@font-face {
+    font-family: 'NexaBold';
+    src: url('../fonts/NexaBold.otf');
+}
+
+@font-face {
+    font-family: 'DevilBreezeBook';
+    src: url('../fonts/DevilBreezeBook.ttf');
+}
+
+@font-face {
+    font-family: 'Neptune';
+    src: url('../fonts/Neptune.otf');
+}
 
 .background {
-    background-color: #0a0a0a;
+    background-color: transparent;
     position: fixed;
     width: 100%;
     height: 100%;
-    background-image: url(../img/sparta.png);
     background-size: cover;
     background-position: center;
     opacity: 1;
-    filter: brightness(.8);
+    /*filter: brightness(.8);*/
     z-index: -1;
+    transition: all .5s cubic-bezier(0, -0.44, 1, 1.44);
+}
+
+.background#bg-left {
+    background-image: url("./../img/bg-left.png");
+    left: -200px;
+    right: 200px;
+}
+
+.background#bg-right {
+    background-image: url("./../img/bg-right.png");
+    right: -200px;
+    left: 200px;
+}
+
+.background#war-txt {
+    background-image: url("./../img/war-txt.png");
+    width: 100%;
+    height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: -200px;
+}
+
+.loaded .background {
+    background-image: url("./../img/bg-right.png");
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
 }
 
 .scoreboard {
@@ -49,7 +91,7 @@
 }
 
 .team-box {
-    width: 28em;
+    width: 32em;
     margin: 5px 0px;
     display: flex;
     justify-content: space-between;
@@ -68,7 +110,7 @@
     height: 3em;
     line-height: 3em;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.3em;
     /*border-radius: 3em;*/
     box-shadow: 0px 3px 10px -5px black;
     font-family: "NeonMachine", sans-serif;
@@ -89,39 +131,38 @@
 }
 
 .team-name {
-    font-weight: lighter;
-    font-size: 1.2em;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-size: 2em;
     color: white;
-    letter-spacing: 1px;
-    font-family: "NeonMachine", sans-serif;
+    letter-spacing: 0px;
+    font-family: "Neptune", sans-serif;
 }
 
 .red-list .team-name {
-    padding-right: 4em;
+    padding-right: 2em;
+    text-align: right;
 }
 
 .blue-list .team-name {
-    padding-left: 4em;
+    padding-left: 2em;
+    text-align: left;
 }
 
 .team-box:nth-child(1) {
     font-size: 1.5em;
-    width: 30em;
 }
 
 .team-box:nth-child(2) {
     font-size: 1.3em;
-    width: 28.5em;
 }
 
 .team-box:nth-child(3) {
     font-size: 1.2em;
-    width: 27em;
 }
 
 .team-box:nth-child(4) {
     font-size: 1.1em;
-    width: 26em;
 }
 
 .red-list {
