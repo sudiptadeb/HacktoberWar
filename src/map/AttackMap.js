@@ -221,7 +221,7 @@ export default class AttackMap{
        }catch (e) {
            console.log(from,to,intensity,e)
        }
-        setTimeout(()=>this.run(),Math.random()*1000);
+        setTimeout(()=>this.run(),Math.random()*50);
     }
 
     drawCureve(from,to, intensity){
@@ -274,6 +274,7 @@ export default class AttackMap{
             .attr('stroke','#fdea41')
             .attr('stroke-width',cloudSize)
             .attr('fill','transparent')
+            .attr('style','stroke-dasharray: 100;')
 
         let attack = this.svg.append("g") .attr('transform',attackPos);
 
@@ -330,27 +331,36 @@ export default class AttackMap{
                 }
 
 
+                translate =translate*elevationFactor;
 
-                     cloudSize = 10;
-                    let cloudLength=currentRadius;
-                    let heightEl = (maxElevation*time)*elevationFactor;
+                    let cloudLength=Math.sqrt(currentRadius*currentRadius+translate*translate);
+                    let heightEl = (maxElevation*time+(0*maxElevation))*elevationFactor*currentRadius/radius;
+                //3500
+                let xDiff = (radius*500/3500)*time;
+                let yDiff = (radius*200/3500)*time*elevationFactor;
+
                     trackPath
                         .attr('d',`M0,0 
-                        C   ${cloudLength/2} ,${heightEl+translate*elevationFactor},   
-                            ${cloudLength/2} , ${heightEl+translate*elevationFactor} ,
-                            ${cloudLength},${translate*elevationFactor}`)
+                        C   ${cloudLength/2-xDiff} , ${translate/2+heightEl+yDiff},   
+                            ${cloudLength/2+xDiff} , ${translate/2+heightEl+yDiff} ,
+                            ${cloudLength},${translate}`)
 
 
 
+                //
+                // let gg= track.append('g')
+                //     .attr('transform',`translate(${currentRadius},${translate-cloudSize/2}) rotate(${currentAngle*elevationFactor})`)
+                //
+                //
+                // gg.append('circle')
+                //     .attr('fill','#fdea41')
+                //     .attr('r',cloudSize/2)
+                //     .attr('cx',-cloudSize/2)
+                //     .attr('cy',-cloudSize/2)
 
 
-                return `${attackPos} translate(${currentRadius},${translate*elevationFactor}) rotate(${currentAngle*elevationFactor})`;
+                return `${attackPos} translate(${currentRadius},${translate}) rotate(${currentAngle*elevationFactor})`;
             })
-            // .select('path')
-            // .attrTween("d", ()=>()=>{
-            //
-            // })
-        ;
 
 
 
