@@ -1,0 +1,414 @@
+import * as d3 from 'd3'; // NO I18N
+import * as geo from 'd3-geo'; // NO I18N
+import collection from './geoJson';
+import astroid from './image/astroid.svg';
+
+console.log(collection)
+// console.log("testing",JSON.stringify(collection.wbc.map(each=>each.id)))
+
+let w = document.body.clientWidth;
+let h = document.body.clientHeight;
+var projection = geo.geoMercator();
+// let capitals=["ABW","AFG","AGO","ALB","AND","ARE","ARG","ARM","ASM","ATG","AUS","AUT","AZE","BDI","BEL","BEN","BFA","BGD","BGR","BHR","BHS","BIH","BLR","BLZ","BMU","BOL","BRA","BRB","BRN","BTN","BWA","CAF","CAN","CHE","CHI","CHL","CHN","CIV","CMR","COD","COG","COL","COM","CPV","CRI","CUB","CUW","CYM","CYP","CZE","DEU","DJI","DMA","DNK","DOM","DZA","ECU","EGY","ERI","ESP","EST","ETH","FIN","FJI","FRA","FRO","FSM","GAB","GBR","GEO","GHA","GIN","GMB","GNB","GNQ","GRC","GRD","GRL","GTM","GUM","GUY","HKG","HND","HRV","HTI","HUN","IDN","IMN","IND","IRL","IRN","IRQ","ISL","ISR","ITA","JAM","JOR","JPN","KAZ","KEN","KGZ","KHM","KIR","KNA","KOR","KSV","KWT","LAO","LBN","LBR","LBY","LCA","LIE","LKA","LSO","LTU","LUX","LVA","MAC","MAF","MAR","MCO","MDA","MDG","MDV","MEX","MHL","MKD","MLI","MLT","MMR","MNE","MNG","MNP","MOZ","MRT","MUS","MWI","MYS","NAM","NCL","NER","NGA","NIC","NLD","NOR","NPL","NZL","OMN","PAK","PAN","PER","PHL","PLW","PNG","POL","PRI","PRK","PRT","PRY","PSE","PYF","QAT","ROU","RUS","RWA","SAU","SDN","SEN","SGP","SLB","SLE","SLV","SMR","SOM","SRB","SSD","STP","SUR","SVK","SVN","SWE","SWZ","SXM","SYC","SYR","TCA","TCD","TGO","THA","TJK","TKM","TLS","TON","TTO","TUN","TUR","TUV","TZA","UGA","UKR","URY","USA","UZB","VCT","VEN","VIR","VNM","VUT","WSM","YEM","ZAF","ZMB","ZWE"]
+let selectedCountries =["ABW","AFG","AGO","ALB","AND","ARE",
+    'GRL','ISL','CAN','BRA','MEX','NZL','AUS','MDG','JPN','LKA','IND','RUS','CHN','KAZ','NAM','NOR','EGY','SEN','CHL','PRT']
+
+let teams =[
+    { "name": "Debug Thugs",    "defendScore": 33, "attackScore": 13, "damageScore": 6 },
+    {
+        "name": "Verithanam Hackers",
+        "defendScore": 198,
+        "attackScore": 9,
+        "damageScore": 47
+    },
+    {
+        "name": "Shadowkhan",
+        "defendScore": 325,
+        "attackScore": 38,
+        "damageScore": 49
+    },
+    {
+        "name": "Fun Panrom",
+        "defendScore": 487,
+        "attackScore": 14,
+        "damageScore": 14
+    },
+    {
+        "name": "Irakamatravargal",
+        "defendScore": 285,
+        "attackScore": 20,
+        "damageScore": 8
+    },
+    {
+        "name": "HeartHackers",
+        "defendScore": 135,
+        "attackScore": 20,
+        "damageScore": 54
+    },
+    {
+        "name": "Cliq Geeks",
+        "defendScore": 41,
+        "attackScore": 22,
+        "damageScore": 13
+    },
+    {
+        "name": "Ithellam Enga urupada poguthu",
+        "defendScore": 264,
+        "attackScore": 45,
+        "damageScore": 60
+    },
+    {
+        "name": "CLIQ-GEEK",
+        "defendScore": 266,
+        "attackScore": 5,
+        "damageScore": 8
+    },
+    {
+        "name": "SitesCyber",
+        "defendScore": 195,
+        "attackScore": 17,
+        "damageScore": 72
+    },
+    {
+        "name": "CodeProject",
+        "defendScore": 183,
+        "attackScore": 13,
+        "damageScore": 10
+    },
+    {
+        "name": "Searching dot dot dot",
+        "defendScore": 41,
+        "attackScore": 73,
+        "damageScore": 33
+    },
+    {
+        "name": "Christopher",
+        "defendScore": 42,
+        "attackScore": 31,
+        "damageScore": 20
+    },
+    {
+        "name": "venom",
+        "defendScore": 536,
+        "attackScore": 6,
+        "damageScore": 11
+    },
+    {
+        "name": "Virus",
+        "defendScore": 995,
+        "attackScore": 55,
+        "damageScore": 22
+    },
+    {
+        "name": "Avengers",
+        "defendScore": 258,
+        "attackScore": 1,
+        "damageScore": 9
+    },
+    {
+        "name": "SPARKS",
+        "defendScore": 135,
+        "attackScore": 11,
+        "damageScore": 23
+    },
+    {
+        "name": "Zyber Punks",
+        "defendScore": 72,
+        "attackScore": 4,
+        "damageScore": 13
+    },
+    {
+        "name": "I do not know",
+        "defendScore": 3,
+        "attackScore": 18,
+        "damageScore": 39
+    },
+    {
+        "name": "Mostwanted",
+        "defendScore": 122,
+        "attackScore": 5,
+        "damageScore": 16
+    },
+    {
+        "name": "Anonymous",
+        "defendScore": 355,
+        "attackScore": 14,
+        "damageScore": 57
+    },
+    {
+        "name": "Firewall ",
+        "defendScore": 42,
+        "attackScore": 38,
+        "damageScore": 6
+    },
+    {
+        "name": "Mavericks",
+        "defendScore": 261,
+        "attackScore": 18,
+        "damageScore": 74
+    },
+    {
+        "name": "CyberWarriors",
+        "defendScore": 404,
+        "attackScore": 9,
+        "damageScore": 24
+    },
+    {
+        "name": "vadawow",
+        "defendScore": 12,
+        "attackScore": 36,
+        "damageScore": 6
+    },
+    {
+        "name": "Team Soona Paana",
+        "defendScore": 8,
+        "attackScore": 66,
+        "damageScore": 22
+    }
+]
+let teamNameMap = {},attackTransitionTime =750;
+
+export default class AttackMap{
+    constructor (container){
+        this.container =container;
+        projection
+        // .scaleX(w/6.5)
+        // .translate([w / 2, h / 1.6]);
+
+        this.teams = processTeams(teams);
+        this.svg = d3.select(this.container)
+            .append("div")
+            .attr("id", "map")
+            .append("svg");
+
+        this.plotTeams();
+        this.run();
+    }
+
+    run(){
+        let from  = Math.ceil( Math.random()*this.teams.length)-1;
+        let to  = Math.ceil( Math.random()*this.teams.length)-1;
+        let intensity = Math.ceil(Math.random() *5);
+        try{
+
+            this.drawCureve(from,to,intensity);
+        }catch (e) {
+            console.log(from,to,intensity,e)
+        }
+        // setTimeout(()=>this.run(),Math.random()*1000);
+    }
+
+    drawCureve(from,to, intensity){
+        let fromTeam = this.teams[from];
+        let toTeam = this.teams[to];
+        let fromLocation = fromTeam.location;
+        let toLocation = toTeam.location;
+        let x  = toLocation.x - fromLocation.x;
+        let y  = toLocation.y - fromLocation.y;
+        let angle = 0;
+        let dx = x,dy=y;
+        let oppsiteSide = dy;
+        if(x>0){
+            if(y<0){
+                dy *=-1;
+                angle =270;
+                oppsiteSide = dx;
+            }
+        }else{
+            dx *=-1;
+            angle = 90;
+            if(y<0){
+                dy *=-1;
+                angle =180;
+                oppsiteSide = dy;
+            }else{
+                oppsiteSide = dx;
+            }
+        }
+        let radius = Math.sqrt(x*x +y*y);
+        angle += Math.asin(oppsiteSide/radius)* 180 / Math.PI;
+        console.log(angle,radius,oppsiteSide/radius)
+
+        let attackPos = `translate(${fromLocation.x},${fromLocation.y}) rotate(${angle})`;
+        let attack = this.svg.append("g") .attr('transform',attackPos);
+
+        let astroidWidth  = 1+intensity;
+        // attack.append("image")
+        //     .attr("width",astroidWidth)
+        //     .attr('style',`transform : translate(-${astroidWidth}px,0px) rotate(270deg)`)
+        //     .attr("href", astroid);
+
+        // attack.append("circle")
+        //     .attr("r", astroidWidth)
+        //     .attr("fill", "#FFD04A");
+
+        let path = attack.append("path")
+            .attr("d", `M0,${astroidWidth} 
+            C -${astroidWidth*2},0,    -${astroidWidth*2},0,     -${astroidWidth*4},0 
+            C -${astroidWidth*2},0, -${astroidWidth*2},0,  0,-${astroidWidth} 
+            C${astroidWidth} ,-${astroidWidth}, ${astroidWidth},${astroidWidth},   0,${astroidWidth} Z`)
+
+            .attr("fill", "#FFD04A")
+        // .attr("stroke", "#F36E21");
+
+        let currentRadius = 0;
+
+
+
+        const interpolate = d3.interpolate( 0,radius);
+        const t = this.svg.transition().duration(attackTransitionTime);
+
+        attack.transition(t)
+            .tween("data", () => { // NO I18N
+                return t => (currentRadius = interpolate(t));
+            })
+            .attrTween("transform", ()=>()=>`${attackPos} translate(${currentRadius},0)`);
+
+
+
+
+        // setTimeout(()=>{ attack.remove(); },attackTransitionTime);
+
+        setTimeout(()=>{
+
+            let destination = this.svg.append("circle")
+                .attr('transform',`translate(${toLocation.x},${toLocation.y})`)
+                .attr("r", 0)
+                .attr("fill", "transparent")
+                .attr("stroke", "#FFD04A")
+                .attr("fill-opacity", "0.6");
+
+            let expanding = 20+intensity*2;
+
+            const destinationInterpolate = d3.interpolate( 0,expanding);
+            let destRad =0;
+            destination.transition(this.svg.transition().duration(attackTransitionTime))
+                .tween("data", () => { // NO I18N
+                    return t => (destRad = destinationInterpolate(t));
+                })
+                .attrTween("r", ()=>()=>destRad);
+
+            setTimeout(()=>{ destination.remove() },attackTransitionTime)
+        },attackTransitionTime-500)
+    }
+
+
+
+    plotTeams(){
+
+        var path = geo.geoPath()
+            .projection(projection);
+
+
+        var feature = this.svg
+            .selectAll("path.feature");
+
+        feature = feature
+            .data(collection.features)
+            .enter().append("path")
+            .attr("class", "feature")
+
+        feature.attr("d", path);
+
+
+
+        let country = this.svg.append('g').selectAll("g")
+            .data(this.teams)
+            .enter()
+            .append("g")
+            .attr('data-name',each=>each.name)
+            .attr("transform", team =>`translate(${team.location.x},${team.location.y})`);
+
+        country.append("circle")
+            .attr("r", 4)
+            .attr("fill", "hsl(0,50%,70%)");
+
+        country.append('text')
+            .attr("fill", "hsl(0,50%,50%,0.8)")
+            .attr("style", "transform : translate(-10px,18px);font-size: 10px;")
+            .text(d => d.name);
+    }
+}
+// return object country
+
+function processTeams(teamList){
+    let size = teamList.length;
+
+    teamList.sort(function(a, b){
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;
+    });
+
+    for(let i=0;i<teamList.length;i++){
+        let team = teamList[i];
+        let id = i;
+        team.id = id;
+        teamNameMap[team.name] = id;
+        team.country = getByIsoId(selectedCountries[team.id]);
+        let loc = projection([team.country.longitude, team.country.latitude]);
+        team.location = {x:loc[0],y:loc[1]};
+    }
+    return teamList;
+}
+
+
+
+
+function getByIsoId(id) {
+    var c, l = collection.wbc.length;
+    while(--l > -1) {
+        c = collection.wbc[l];
+        // if (c.iso2Code === id)
+        //     return c;
+        if (c.id === id)
+            return c;
+    }
+debugger
+    return null;
+}
+
+
+
+function coord(x, y) {
+    var c = [x, y];
+    return {
+        x : {
+            valueOf : function() {
+                var p = projection(c);
+                return p[0];
+            }
+        },
+        y : {
+            valueOf : function() {
+                var p = projection(c);
+                return p[1];
+            }
+        }
+    }
+}
+
+
+
+
+
+// var zoom = d3.behavior.zoom()
+//     .on("zoom", function() {
+//         projection.translate(d3.event.translate).scale(d3.event.scale);
+//         feature.attr("d", path);
+//         circle.attr("transform", ctr);
+//     });
+//
+// zoom.translate(projection.translate())
+//     .scale(projection.scale())
+//     .scaleExtent([h / 6, h])
+// ;
+
+// let temp = this.svg.append('g').selectAll("circle")
+//     .data(capitals.map(getByIsoId))
+//     .join("circle")
+//     .attr('data-name',each=>each.id)
+//
+//     .attr("r", 1)
+//     .attr("fill", "#fff")
+//     .attr("transform", ctr);

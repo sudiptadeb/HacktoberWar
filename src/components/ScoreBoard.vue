@@ -25,7 +25,7 @@
 					</transition-group>
 				</div>
 				<div class="sb-footer">
-					Footer
+					
 				</div>
 			</div>
 		</div>
@@ -34,7 +34,6 @@
 
 <script>
     import {shuffle} from "lodash";
-
     export default {
         name: "ScoreBoard",
         data() {
