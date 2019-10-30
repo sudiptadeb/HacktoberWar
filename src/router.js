@@ -4,7 +4,7 @@ import ScoreBoard from "./components/ScoreBoard";
 import Feeds from "./components/Feeds";
 import Rules from "@/components/Rules";
 import Map from "@/components/Map";
-
+import warmap from "@/components/warmap";
 Vue.use(Router);
 
 export default new Router({
@@ -47,6 +47,15 @@ export default new Router({
             },
             name: "Score Board", //NO I18N
             path: "/feeds" //NO I18N
+
+        },
+        {
+            component: warmap,
+            meta: {
+                icon: "fa fa-map" //NO I18N
+            },
+            name: "War Map", //NO I18N
+            path: "/warmap" //NO I18N
 
         }
     ]

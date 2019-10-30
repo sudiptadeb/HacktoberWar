@@ -1,7 +1,7 @@
 import * as d3 from 'd3'; // NO I18N
 import map from './image/basemap.png';
 import icon from "./icon";
-
+import axios from "axios";
 // console.log("testing",JSON.stringify(collection.wbc.map(each=>each.id)))
 
 let width = 7643;
@@ -196,7 +196,7 @@ export default class AttackMap{
         this.container =container;
 
 
-
+        axios.get("http://172.24.117.157:8080/getkeysetstats").then(res=>{console.log(res)})
         this.teams = processTeams(teams);
         this.svg = d3.select(this.container)
 
@@ -263,10 +263,6 @@ export default class AttackMap{
 
 
         let track = this.svg.append("g").attr('class','track') .attr('transform',attackPos);
-        // track.append('path')
-        //     .attr('d',`M0,0 L${radius} 0`)
-        //     .attr('stroke','#FFD04A')
-        //     .attr('style','stroke-width: 20px; stroke-dasharray: 36;')
 
 
         let attack = this.svg.append("g") .attr('transform',attackPos);
@@ -279,11 +275,11 @@ export default class AttackMap{
 
         attack
             .append('g')
-            .attr('transform',`translate(${astroidWidth*5/2},-${astroidWidth})  rotate(90)`)
+            .attr('transform',`translate(-${astroidWidth/2},-${astroidWidth/2})  rotate(45)`)
             .append("use") // NO I18N
             .attr('xlink:href',d=>`#symbol-icon-asteroid`) // NO I18N
             .attr('width',astroidWidth) // NO I18N
-            .attr('height',astroidWidth*5) // NO I18N
+            .attr('height',astroidWidth) // NO I18N
 
 
 
@@ -338,21 +334,21 @@ export default class AttackMap{
                     //
                     let cloudSize = 20;
                    let gg= track.append('g')
-                        .attr('transform',`translate(${currentRadius},${translate*elevationFactor-astroidWidth/2}) rotate(${currentAngle*elevationFactor})`)
+                        .attr('transform',`translate(${currentRadius},${translate*elevationFactor-cloudSize/2}) rotate(${currentAngle*elevationFactor})`)
                     gg.append('circle')
-                        .attr('fill','white')
+                        .attr('fill','#fdea41')
                         .attr('r',cloudSize/4)
                         .attr('cy',-cloudSize/4)
                     gg.append('circle')
-                        .attr('fill','white')
+                        .attr('fill','#fdea41')
                         .attr('r',cloudSize/4)
                         .attr('cx',cloudSize/4)
                     gg.append('circle')
-                        .attr('fill','white')
+                        .attr('fill','#fdea41')
                         .attr('r',cloudSize/4)
                         .attr('cy',cloudSize/4)
                     gg.append('circle')
-                        .attr('fill','white')
+                        .attr('fill','#fdea41')
                         .attr('r',cloudSize/4)
                         .attr('cx',-cloudSize/4)
 
@@ -411,9 +407,9 @@ export default class AttackMap{
         document.body.addEventListener('click',function(e){
             let x= e.clientX;
             let y= e.clientY;
-            clientWidth = document.body.clientWidth;
-            clientHeight = document.body.clientHeight;
-            console.log(x*width/clientWidth,y*height/clientHeight)
+            // clientWidth = document.body.clientWidth;
+            // clientHeight = document.body.clientHeight;
+            console.log(x,y)
         })
 
         let country = this.svg.append('g').selectAll("g")
