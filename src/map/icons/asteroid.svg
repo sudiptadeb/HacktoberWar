@@ -9,226 +9,30 @@
 </filter>
 </defs>
 <g fill="red" filter="url(#a)">
-<circle cx="55" cy="66.8" r="8.5">
-<animate attributeName="cy" begin="-.6" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="143.17;-24.04"/>
-<animate attributeName="r" begin="-.6" dur="0.8s" keyTimes="0;0.57;1" repeatCount="indefinite" values="42;0;0"/>
-</circle>
-<circle cx="36" cy="107.2" r="27.5">
-<animate attributeName="cy" begin="-.2" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="134.60;-30.61"/>
-<animate attributeName="r" begin="-.2" dur="0.8s" keyTimes="0;0.98;1" repeatCount="indefinite" values="33;0;0"/>
-</circle>
-<circle cx="41" cy="36.1" r=".7">
-<animate attributeName="cy" begin="-.9" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="124.07;0.65"/>
-<animate attributeName="r" begin="-.9" dur="0.8s" keyTimes="0;0.79;1" repeatCount="indefinite" values="7;0;0"/>
-</circle>
-<circle cx="56" cy="36.2" r="1.1">
-<animate attributeName="cy" begin="-.9" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="122.56;-0.92"/>
-<animate attributeName="r" begin="-.9" dur="0.8s" keyTimes="0;0.90;1" repeatCount="indefinite" values="5;0;0"/>
-</circle>
-<circle cx="65" cy="28.8" r="0">
-<animate attributeName="cy" begin="-1.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="127.73;5.56"/>
-<animate attributeName="r" begin="-1.1" dur="0.8s" keyTimes="0;0.60;1" repeatCount="indefinite" values="14;0;0"/>
-</circle>
-<circle cx="54" cy="86.5" r="14.6">
-<animate attributeName="cy" begin="-.4" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="154.39;-40.77"/>
-<animate attributeName="r" begin="-.4" dur="0.8s" keyTimes="0;0.51;1" repeatCount="indefinite" values="45;0;0"/>
-</circle>
-<circle cx="64" cy="19" r="0">
-<animate attributeName="cy" begin="-1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="140.78;-27.29"/>
-<animate attributeName="r" begin="-1" dur="0.8s" keyTimes="0;0.67;1" repeatCount="indefinite" values="33;0;0"/>
-</circle>
-<circle cx="64" cy="8.8" r="0">
-<animate attributeName="cy" begin="-1.2" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="122.21;-0.32"/>
-<animate attributeName="r" begin="-1.2" dur="0.8s" keyTimes="0;0.55;1" repeatCount="indefinite" values="19;0;0"/>
-</circle>
-<circle cx="60" cy="72.8" r="20.1">
-<animate attributeName="cy" begin="-.6" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="155.31;-34.35"/>
-<animate attributeName="r" begin="-.6" dur="0.8s" keyTimes="0;0.89;1" repeatCount="indefinite" values="39;0;0"/>
-</circle>
-<circle cx="93" cy="25.2" r="0">
-<animate attributeName="cy" begin="-1.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="117.14;10.70"/>
-<animate attributeName="r" begin="-1.1" dur="0.8s" keyTimes="0;0.67;1" repeatCount="indefinite" values="4;0;0"/>
-</circle>
-<circle cx="75" cy="-6.4" r="0">
-<animate attributeName="cy" begin="-1.3" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="131.53;-9.82"/>
-<animate attributeName="r" begin="-1.3" dur="0.8s" keyTimes="0;0.59;1" repeatCount="indefinite" values="16;0;0"/>
-</circle>
-<circle cx="60" cy="64.4" r="6.3">
-<animate attributeName="cy" begin="-.6" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="136.83;-23.12"/>
-<animate attributeName="r" begin="-.6" dur="0.8s" keyTimes="0;0.57;1" repeatCount="indefinite" values="30;0;0"/>
-</circle>
-<circle cx="23" cy="75.7" r="5.3">
-<animate attributeName="cy" begin="-.4" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="112.45;-7.33"/>
-<animate attributeName="r" begin="-.4" dur="0.8s" keyTimes="0;0.65;1" repeatCount="indefinite" values="10;0;0"/>
-</circle>
-<circle cx="49" cy="97.7" r="3.9">
-<animate attributeName="cy" begin="-.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="113.13;0.19"/>
-<animate attributeName="r" begin="-.1" dur="0.8s" keyTimes="0;0.64;1" repeatCount="indefinite" values="5;0;0"/>
-</circle>
-<circle cx="50" cy="150.3" r="46.2">
-<animate attributeName="cy" begin="0" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="161.65;-48.40"/>
-<animate attributeName="r" begin="0" dur="0.8s" keyTimes="0;0.94;1" repeatCount="indefinite" values="49;0;0"/>
-</circle>
-<circle cx="64" cy="100.8" r="18.5">
-<animate attributeName="cy" begin="-.3" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="137.21;-24.36"/>
-<animate attributeName="r" begin="-.3" dur="0.8s" keyTimes="0;0.71;1" repeatCount="indefinite" values="27;0;0"/>
-</circle>
-<circle cx="50" cy="49.4" r="14.4">
-<animate attributeName="cy" begin="-.8" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="153.76;-25.36"/>
-<animate attributeName="r" begin="-.8" dur="0.8s" keyTimes="0;0.86;1" repeatCount="indefinite" values="44;0;0"/>
-</circle>
-<circle cx="33" cy="128.6" r="21.1">
-<animate attributeName="cy" begin="-.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="140.14;-17.46"/>
-<animate attributeName="r" begin="-.1" dur="0.8s" keyTimes="0;0.61;1" repeatCount="indefinite" values="24;0;0"/>
-</circle>
-<circle cx="48" cy="18.9" r="12.3">
-<animate attributeName="cy" begin="-.9" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="150.71;-33.55"/>
-<animate attributeName="r" begin="-.9" dur="0.8s" keyTimes="0;0.97;1" repeatCount="indefinite" values="47;0;0"/>
-</circle>
-<circle cx="86" cy="24.8" r="0">
-<animate attributeName="cy" begin="-1.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="112.38;3.54"/>
-<animate attributeName="r" begin="-1.1" dur="0.8s" keyTimes="0;0.68;1" repeatCount="indefinite" values="8;0;0"/>
-</circle>
-<circle cx="15" cy="114.2" r="12.1">
-<animate attributeName="cy" begin="-.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="130.72;-0.66"/>
-<animate attributeName="r" begin="-.1" dur="0.8s" keyTimes="0;0.91;1" repeatCount="indefinite" values="14;0;0"/>
-</circle>
-<circle cx="54" cy="125.7" r="28.1">
-<animate attributeName="cy" begin="-.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="146.53;-31.89"/>
-<animate attributeName="r" begin="-.1" dur="0.8s" keyTimes="0;0.78;1" repeatCount="indefinite" values="33;0;0"/>
-</circle>
-<circle cx="51" cy="18.9" r=".8">
-<animate attributeName="cy" begin="-.9" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="159.80;-40.53"/>
-<animate attributeName="r" begin="-.9" dur="0.8s" keyTimes="0;0.71;1" repeatCount="indefinite" values="55;0;0"/>
-</circle>
-<circle cx="42" cy="49.6" r="1.9">
-<animate attributeName="cy" begin="-.8" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="124.83;-6.19"/>
-<animate attributeName="r" begin="-.8" dur="0.8s" keyTimes="0;0.62;1" repeatCount="indefinite" values="24;0;0"/>
-</circle>
-<circle cx="47" cy="-33.2" r="0">
-<animate attributeName="cy" begin="-1.3" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="150.99;-33.58"/>
-<animate attributeName="r" begin="-1.3" dur="0.8s" keyTimes="0;0.59;1" repeatCount="indefinite" values="45;0;0"/>
-</circle>
-<circle cx="51" cy="110.5" r="29.1">
-<animate attributeName="cy" begin="-.3" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="163.78;-49.51"/>
-<animate attributeName="r" begin="-.3" dur="0.8s" keyTimes="0;0.58;1" repeatCount="indefinite" values="51;0;0"/>
-</circle>
-<circle cx="49" cy="18.2" r="10.5">
-<animate attributeName="cy" begin="-.9" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="155.87;-45.75"/>
-<animate attributeName="r" begin="-.9" dur="0.8s" keyTimes="0;0.86;1" repeatCount="indefinite" values="51;0;0"/>
-</circle>
-<circle cx="71" cy="118.7" r="25.8">
-<animate attributeName="cy" begin="0" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="129.55;-23.61"/>
-<animate attributeName="r" begin="0" dur="0.8s" keyTimes="0;0.91;1" repeatCount="indefinite" values="28;0;0"/>
-</circle>
-<circle cx="42" cy="65.5" r="16.9">
-<animate attributeName="cy" begin="-.6" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="152.17;-22.76"/>
-<animate attributeName="r" begin="-.6" dur="0.8s" keyTimes="0;0.87;1" repeatCount="indefinite" values="39;0;0"/>
-</circle>
-<circle cx="46" cy="93.3" r="1.7">
-<animate attributeName="cy" begin="-.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="104.34;13.77"/>
-<animate attributeName="r" begin="-.1" dur="0.8s" keyTimes="0;0.94;1" repeatCount="indefinite" values="2;0;0"/>
-</circle>
-<circle cx="51" cy="71.3" r="24">
-<animate attributeName="cy" begin="-.6" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="160.27;-31.20"/>
-<animate attributeName="r" begin="-.6" dur="0.8s" keyTimes="0;0.93;1" repeatCount="indefinite" values="48;0;0"/>
-</circle>
-<circle cx="58" cy="45.8" r="8.4">
-<animate attributeName="cy" begin="-.8" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="139.58;-22.74"/>
-<animate attributeName="r" begin="-.8" dur="0.8s" keyTimes="0;0.73;1" repeatCount="indefinite" values="39;0;0"/>
-</circle>
-<circle cx="47" cy="-5.4" r="0">
-<animate attributeName="cy" begin="-1.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="163.22;-31.75"/>
-<animate attributeName="r" begin="-1.1" dur="0.8s" keyTimes="0;0.70;1" repeatCount="indefinite" values="44;0;0"/>
-</circle>
-<circle cx="52" cy="36.2" r="19.9">
-<animate attributeName="cy" begin="-.8" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="174.33;-45.02"/>
-<animate attributeName="r" begin="-.8" dur="0.8s" keyTimes="0;0.98;1" repeatCount="indefinite" values="55;0;0"/>
-</circle>
-<circle cx="59" cy="79.1" r="6.7">
-<animate attributeName="cy" begin="-.5" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="123.54;0.37"/>
-<animate attributeName="r" begin="-.5" dur="0.8s" keyTimes="0;0.91;1" repeatCount="indefinite" values="11;0;0"/>
-</circle>
-<circle cx="39" cy="132.4" r="18.5">
-<animate attributeName="cy" begin="-1.4" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="135.63;-10.82"/>
-<animate attributeName="r" begin="-1.4" dur="0.8s" keyTimes="0;0.80;1" repeatCount="indefinite" values="19;0;0"/>
-</circle>
-<circle cx="41" cy="25.6" r="0">
-<animate attributeName="cy" begin="-1.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="116.28;10.66"/>
-<animate attributeName="r" begin="-1.1" dur="0.8s" keyTimes="0;0.84;1" repeatCount="indefinite" values="8;0;0"/>
-</circle>
-<circle cx="52" cy="7.5" r="3.5">
-<animate attributeName="cy" begin="-1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="145.61;-42.00"/>
-<animate attributeName="r" begin="-1" dur="0.8s" keyTimes="0;0.79;1" repeatCount="indefinite" values="45;0;0"/>
-</circle>
-<circle cx="45" cy="125.4" r="34.5">
-<animate attributeName="cy" begin="-.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="153.62;-34.72"/>
-<animate attributeName="r" begin="-.1" dur="0.8s" keyTimes="0;0.76;1" repeatCount="indefinite" values="43;0;0"/>
-</circle>
-<circle cx="80" cy="90.6" r="4">
-<animate attributeName="cy" begin="-.3" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="113.14;10.54"/>
-<animate attributeName="r" begin="-.3" dur="0.8s" keyTimes="0;0.50;1" repeatCount="indefinite" values="7;0;0"/>
-</circle>
-<circle cx="41" cy="16.1" r="0">
-<animate attributeName="cy" begin="-1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="148.50;-28.60"/>
-<animate attributeName="r" begin="-1" dur="0.8s" keyTimes="0;0.58;1" repeatCount="indefinite" values="40;0;0"/>
-</circle>
-<circle cx="66" cy="92.9" r="10.8">
-<animate attributeName="cy" begin="-.3" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="126.98;-13.52"/>
-<animate attributeName="r" begin="-.3" dur="0.8s" keyTimes="0;0.66;1" repeatCount="indefinite" values="17;0;0"/>
-</circle>
-<circle cx="68" cy="103.6" r="20.4">
-<animate attributeName="cy" begin="-.2" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="130.78;-25.13"/>
-<animate attributeName="r" begin="-.2" dur="0.8s" keyTimes="0;0.80;1" repeatCount="indefinite" values="26;0;0"/>
-</circle>
-<circle cx="46" cy="93.3" r="9.2">
-<animate attributeName="cy" begin="-.3" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="118.53;3.69"/>
-<animate attributeName="r" begin="-.3" dur="0.8s" keyTimes="0;0.63;1" repeatCount="indefinite" values="14;0;0"/>
-</circle>
-<circle cx="50" cy="42.3" r="6">
-<animate attributeName="cy" begin="-.8" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="120.82;-1.45"/>
-<animate attributeName="r" begin="-.8" dur="0.8s" keyTimes="0;0.96;1" repeatCount="indefinite" values="18;0;0"/>
-</circle>
-<circle cx="40" cy="24.7" r="0">
-<animate attributeName="cy" begin="-1.2" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="114.00;13.41"/>
-<animate attributeName="r" begin="-1.2" dur="0.8s" keyTimes="0;0.65;1" repeatCount="indefinite" values="5;0;0"/>
-</circle>
-<circle cx="50" cy="63.5" r="26">
-<animate attributeName="cy" begin="-.6" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="157.99;-37.01"/>
-<animate attributeName="r" begin="-.6" dur="0.8s" keyTimes="0;0.96;1" repeatCount="indefinite" values="52;0;0"/>
-</circle>
-<circle cx="52" cy="98.2" r="25.6">
-<animate attributeName="cy" begin="-.4" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="158.88;-26.48"/>
-<animate attributeName="r" begin="-.4" dur="0.8s" keyTimes="0;0.73;1" repeatCount="indefinite" values="46;0;0"/>
-</circle>
-<circle cx="41" cy="129.8" r="21.7">
-<animate attributeName="cy" begin="-.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="145.75;-8.96"/>
-<animate attributeName="r" begin="-.1" dur="0.8s" keyTimes="0;0.62;1" repeatCount="indefinite" values="26;0;0"/>
-</circle>
-<circle cx="65" cy="41.8" r="11.9">
-<animate attributeName="cy" begin="-.8" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="143.40;-27.25"/>
-<animate attributeName="r" begin="-.8" dur="0.8s" keyTimes="0;0.96;1" repeatCount="indefinite" values="31;0;0"/>
-</circle>
-<circle cx="49" cy="-22.2" r="0">
-<animate attributeName="cy" begin="-1.2" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="162.15;-45.53"/>
-<animate attributeName="r" begin="-1.2" dur="0.8s" keyTimes="0;0.55;1" repeatCount="indefinite" values="46;0;0"/>
-</circle>
-<circle cx="61" cy="88" r="18.1">
-<animate attributeName="cy" begin="-.4" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="146.87;-27.48"/>
-<animate attributeName="r" begin="-.4" dur="0.8s" keyTimes="0;0.85;1" repeatCount="indefinite" values="30;0;0"/>
-</circle>
-<circle cx="49" cy="12" r="0">
-<animate attributeName="cy" begin="-1.3" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="115.07;8.96"/>
-<animate attributeName="r" begin="-1.3" dur="0.8s" keyTimes="0;0.69;1" repeatCount="indefinite" values="3;0;0"/>
-</circle>
+
+<circle cx="36" cy="107.2" r="27.5"></circle>
+
+
+<circle cx="60" cy="72.8" r="20.1"></circle>
+
+<circle cx="50" cy="150.3" r="46.2"></circle>
+<circle cx="64" cy="100.8" r="18.5"></circle>
+<circle cx="50" cy="49.4" r="14.4"></circle>
+<circle cx="51" cy="110.5" r="29.1"></circle>
+<circle cx="49" cy="18.2" r="10.5"/>
+<circle cx="71" cy="118.7" r="25.8"></circle>
+<circle cx="42" cy="65.5" r="16.9"></circle>
+
+<circle cx="52" cy="36.2" r="19.9"></circle>
+
+
+<circle cx="50" cy="63.5" r="26"></circle>
+<circle cx="52" cy="98.2" r="25.6"></circle>
+<circle cx="41" cy="129.8" r="21.7"></circle>
+
 <circle cx="50" cy="135.1" r="41.9">
-<animate attributeName="cy" begin="-.1" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="158.57;-46.19"/>
-<animate attributeName="r" begin="-.1" dur="0.8s" keyTimes="0;0.71;1" repeatCount="indefinite" values="50;0;0"/>
 </circle>
-<circle cx="61" cy="133.8" r="31.2">
-<animate attributeName="cy" begin="0" dur="0.8s" keyTimes="0;1" repeatCount="indefinite" values="145.85;-23.47"/>
-<animate attributeName="r" begin="0" dur="0.8s" keyTimes="0;0.85;1" repeatCount="indefinite" values="34;0;0"/>
-</circle>
+
 </g>
 <g fill="#FA0" filter="url(#a)">
 <circle cx="44" cy="52.3" r="0">
