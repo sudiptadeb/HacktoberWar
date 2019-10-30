@@ -4,7 +4,6 @@ import ScoreBoard from "./components/ScoreBoard";
 import warmap from "./components/warmap";
 import Rules from "@/components/Rules";
 import Map from "@/components/Map";
-import warmap from "@/components/warmap";
 Vue.use(Router);
 
 export default new Router({

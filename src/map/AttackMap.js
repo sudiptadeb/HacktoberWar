@@ -1,7 +1,8 @@
 import * as d3 from 'd3'; // NO I18N
-import map from './image/basemap.png';
+import map from '../assets/img/basemap.png';
 import icon from "./icon";
 import axios from "axios";
+import explosive from "./image/explosion.webp";
 // console.log("testing",JSON.stringify(collection.wbc.map(each=>each.id)))
 
 let width = 7643;
@@ -267,7 +268,7 @@ export default class AttackMap{
 
         let attack = this.svg.append("g") .attr('transform',attackPos);
 
-        let astroidWidth  = 150+intensity*10;
+        let astroidWidth  = 50+intensity*10;
         // attack.append("image")
         //     .attr("width",astroidWidth)
         //     .attr('style',`transform : translate(-${astroidWidth}px,0px) rotate(270deg)`)
@@ -321,7 +322,7 @@ export default class AttackMap{
                 }
                 transitionCount++;
 
-                if(transitionCount%2===0){
+                if(transitionCount%4===0){
 
                     let cloudWidth = 30;
                     // track.append("use") // NO I18N
@@ -332,25 +333,40 @@ export default class AttackMap{
                     //     .attr('width',cloudWidth) // NO I18N
                     //     .attr('height',cloudWidth) // NO I18N
                     //
-                    let cloudSize = 20;
+                    let cloudSize = 10;
+                    let cloudLength=150;
+                    let heightEl = ((maxElevation-translate)*cloudLength/(radius))*elevationFactor;
                    let gg= track.append('g')
                         .attr('transform',`translate(${currentRadius},${translate*elevationFactor-cloudSize/2}) rotate(${currentAngle*elevationFactor})`)
-                    gg.append('circle')
-                        .attr('fill','#fdea41')
-                        .attr('r',cloudSize/4)
-                        .attr('cy',-cloudSize/4)
-                    gg.append('circle')
-                        .attr('fill','#fdea41')
-                        .attr('r',cloudSize/4)
-                        .attr('cx',cloudSize/4)
-                    gg.append('circle')
-                        .attr('fill','#fdea41')
-                        .attr('r',cloudSize/4)
-                        .attr('cy',cloudSize/4)
-                    gg.append('circle')
-                        .attr('fill','#fdea41')
-                        .attr('r',cloudSize/4)
-                        .attr('cx',-cloudSize/4)
+
+                    gg.append('path')
+                        .attr('d',`M0,0 C -${cloudLength/2} ,${heightEl},   -${cloudLength/2} , ${heightEl} ,-${cloudLength},0`)
+                        .attr('stroke','#fdea41')
+                        .attr('stroke-width',cloudSize)
+                        .attr('fill','transparent')
+                    // gg.append('circle')
+                    //     .attr('fill','#fdea41')
+                    //     .attr('r',cloudSize/2)
+                    //     .attr('cx',-cloudSize/2)
+                    //     .attr('cy',-cloudSize/2)
+
+
+                    // gg.append('circle')
+                    //     .attr('fill','#fdea41')
+                    //     .attr('r',cloudSize/4)
+                    //     .attr('cy',-cloudSize/4)
+                    // gg.append('circle')
+                    //     .attr('fill','#fdea41')
+                    //     .attr('r',cloudSize/4)
+                    //     .attr('cx',cloudSize/4)
+                    // gg.append('circle')
+                    //     .attr('fill','#fdea41')
+                    //     .attr('r',cloudSize/4)
+                    //     .attr('cy',cloudSize/4)
+                    // gg.append('circle')
+                    //     .attr('fill','#fdea41')
+                    //     .attr('r',cloudSize/4)
+                    //     .attr('cx',-cloudSize/4)
 
                 }
 
@@ -380,9 +396,9 @@ export default class AttackMap{
 
 
                 let fireWidth = 200;
-                let destination = this.svg.append("use") // NO I18N
-                    .attr('style',`transform : translate(${toLocation.x}px,${toLocation.y}px) translate(-${fireWidth/2}px,-${fireWidth*5/2-70}px) `)
-                    .attr('xlink:href',d=>`#symbol-icon-fire`) // NO I18N
+                let destination = this.svg.append("image") // NO I18N
+                    .attr('style',`transform : translate(${toLocation.x}px,${toLocation.y}px) translate(-${fireWidth/2}px,-${fireWidth*5/2-20}px) `)
+                    .attr('xlink:href',explosive) // NO I18N
                     .attr('width',fireWidth) // NO I18N
                     .attr('height',fireWidth*5) // NO I18N
 
@@ -415,9 +431,9 @@ export default class AttackMap{
         document.body.addEventListener('click',function(e){
             let x= e.clientX;
             let y= e.clientY;
-            // clientWidth = document.body.clientWidth;
-            // clientHeight = document.body.clientHeight;
-            console.log(x,y)
+            clientWidth = document.body.clientWidth;
+            clientHeight = document.body.clientHeight;
+            console.log(x*width/clientWidth,y*height/clientHeight)
         })
 
         // let country = this.svg.append('g').selectAll("g")

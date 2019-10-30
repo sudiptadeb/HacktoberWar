@@ -94,7 +94,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(ico|png|jpe?g|gif)(\?.*)?$/,
+                test: /\.(ico|png|jpe?g|gif|webp)(\?.*)?$/,
                 loader: 'url-loader',  //NO I18N
                 options: {
                     limit: 10000,
