@@ -204,7 +204,7 @@ export default class AttackMap{
             // .attr('preserveAspectRatio','none')
             .attr('viewBox',`0 0 ${width} ${height}`);
 
-        this.requiredIconList=['asteroid','fire','cloud'];
+        this.requiredIconList=['asteroid','fire','cloud','fire2'];
         this.loadSymbols();
         this.plotTeams();
         this.run();
@@ -275,11 +275,11 @@ export default class AttackMap{
 
         attack
             .append('g')
-            .attr('transform',`translate(-${astroidWidth/2},-${astroidWidth/2})  rotate(45)`)
+            .attr('transform',`translate(-${astroidWidth*2},${astroidWidth/2})  rotate(270)`)
             .append("use") // NO I18N
             .attr('xlink:href',d=>`#symbol-icon-asteroid`) // NO I18N
             .attr('width',astroidWidth) // NO I18N
-            .attr('height',astroidWidth) // NO I18N
+            .attr('height',astroidWidth*2) // NO I18N
 
 
 
@@ -370,26 +370,34 @@ export default class AttackMap{
 
         setTimeout(()=>{
 
-            let destination = this.svg.append("circle")
-                .attr('transform',`translate(${toLocation.x},${toLocation.y})`)
-                .attr("r", 0)
-                .attr("fill", "transparent")
-                .attr("stroke", "#FFD04A")
-                .attr("stroke-width", "20")
-                .attr("fill-opacity", "0.6");
+            // let destination = this.svg.append("circle")
+            //     .attr('transform',`translate(${toLocation.x},${toLocation.y})`)
+            //     .attr("r", 0)
+            //     .attr("fill", "transparent")
+            //     .attr("stroke", "#FFD04A")
+            //     .attr("stroke-width", "20")
+            //     .attr("fill-opacity", "0.6");
+
+
+                let fireWidth = 200;
+                let destination = this.svg.append("use") // NO I18N
+                    .attr('style',`transform : translate(${toLocation.x}px,${toLocation.y}px) translate(-${fireWidth/2}px,-${fireWidth*5/2-70}px) `)
+                    .attr('xlink:href',d=>`#symbol-icon-fire`) // NO I18N
+                    .attr('width',fireWidth) // NO I18N
+                    .attr('height',fireWidth*5) // NO I18N
 
             let expanding = 200+intensity*5;
 
-            const destinationInterpolate = d3.interpolate( 0,expanding);
-            let destRad =0;
-            destination.transition(this.svg.transition().duration(attackTransitionTime))
-                .tween("data", () => { // NO I18N
-                    return t => (destRad = destinationInterpolate(t));
-                })
-                .attrTween("r", ()=>()=>destRad);
+            // const destinationInterpolate = d3.interpolate( 0,expanding);
+            // let destRad =0;
+            // destination.transition(this.svg.transition().duration(attackTransitionTime))
+            //     .tween("data", () => { // NO I18N
+            //         return t => (destRad = destinationInterpolate(t));
+            //     })
+            //     .attrTween("r", ()=>()=>destRad);
 
             setTimeout(()=>{ destination.remove() },attackTransitionTime)
-        },time*0.95)
+        },time)
     }
 
 
@@ -412,20 +420,20 @@ export default class AttackMap{
             console.log(x,y)
         })
 
-        let country = this.svg.append('g').selectAll("g")
-            .data(this.teams)
-            .enter()
-            .append("g")
-            .attr('data-name',each=>each.name)
-            .attr("transform", team =>`translate(${team.location.x},${team.location.y})`);
+        // let country = this.svg.append('g').selectAll("g")
+        //     .data(this.teams)
+        //     .enter()
+        //     .append("g")
+        //     .attr('data-name',each=>each.name)
+        //     .attr("transform", team =>`translate(${team.location.x},${team.location.y})`);
 
 
-        let fireWidth = 100;
-        country.append("use") // NO I18N
-            .attr('style',`transform : translate(-${fireWidth/2}px,-${fireWidth*5/2-70}px) `)
-            .attr('xlink:href',d=>`#symbol-icon-fire`) // NO I18N
-            .attr('width',fireWidth) // NO I18N
-            .attr('height',fireWidth*5) // NO I18N
+        // let fireWidth = 100;
+        // country.append("use") // NO I18N
+        //     .attr('style',`transform : translate(-${fireWidth/2}px,-${fireWidth*5/2-70}px) `)
+        //     .attr('xlink:href',d=>`#symbol-icon-fire`) // NO I18N
+        //     .attr('width',fireWidth) // NO I18N
+        //     .attr('height',fireWidth*5) // NO I18N
 
         // country.append("circle")
         //     .attr("r", 50)
@@ -462,7 +470,7 @@ function processTeams(teamList){
         if(a.name > b.name) { return 1; }
         return 0;
     });
-    
+
     for(let i=0;i<teamList.length;i++){
         let team = teamList[i];
         let id = i;
