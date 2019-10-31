@@ -313,9 +313,12 @@ class AttackMap {
             this.blueRankContainer.remove();
         }
 
+        let blueScoreReducedCount = this.teams.filter(each => (each.blueScore<15)).length;
+        // console.log('blueScoreReducedCount',blueScoreReducedCount,this.teams.filter(each => (each.blueScore<15)))
         this.redRankContainer = this.svg.append("g");
+
         this.redRankContainer.selectAll("use")
-            .data(this.teams.filter(each => each.redRank < 4))
+            .data(this.teams.filter(each => (each.redRank < 4 && each.redScore>0)))
             .enter()
             .append("use")
             .attr('data-name', each => each.name)
@@ -326,7 +329,7 @@ class AttackMap {
 
         this.blueRankContainer = this.svg.append("g");
         this.blueRankContainer.selectAll("use")
-            .data(this.teams.filter(each => each.blueRank < 4))
+            .data(this.teams.filter(each => (each.blueRank < 4 && blueScoreReducedCount)))
             .enter()
             .append("use")
             .attr('data-name', each => each.name)
