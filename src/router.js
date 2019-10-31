@@ -47,15 +47,6 @@ export default new Router({
             name: "War Map", //NO I18N
             path: "/warmap" //NO I18N
 
-        },
-        {
-            component: warmap,
-            meta: {
-                icon: "fa fa-map" //NO I18N
-            },
-            name: "War Map", //NO I18N
-            path: "/warmap" //NO I18N
-
         }
     ]
 });
