@@ -107,7 +107,7 @@ let teams = [
         blueBadgeLocation: { x: 2644, y: 1503 }
     },
     {
-        "name": "Searching...",
+        "name": "Searching dot dot dot",
         "defendScore": 41,
         "attackScore": 73,
         "damageScore": 33,
@@ -245,8 +245,33 @@ let teams = [
 let teamNameIdMap = {};
 
 let teamNameMapping ={
-
-};
+    "s5yCoFJ4CEolM8gC": "Debug Thugs",
+    "bE4gAX3gSwCOsttD": "Verithanam Hackers",
+    "UuJGtvPFZPZMe4Ds": "Shadowkhan",
+    "QPimVjUeZKFIYyu6": "Fun Panrom",
+    "9RDZLPkwp63Id5V2": "Irakamatravargal",
+    "UKAk00V4KnfZkfCd": "HeartHackers",
+    "v8yBSeD9yMghgJeL": "Cliq Geeks",
+    "gso0mPij6tzjKQgN": "Ithellam Enga urupada poguthu",
+    "zl5kfW3C3png3hk3": "CLIQ-GEEK",
+    "oKCSnIhttAhAyxF5": "SitesCyber",
+    "vKinCA8l11m5qgwT": "CodeProject",
+    "NbVx4TWJVXj7j3Op": "Searching dot dot dot",
+    "0FPrNhpwY0KdJjrz": "Christopher",
+    "wTO0A8immsOx64Li": "venom",
+    "eMS430o3EqAPtTu4": "Virus",
+    "e7KYQZh4EJd4XZx4": "Avengers",
+    "vgLOmWW4mkGiWizg": "SPARKS",
+    "6rCe82m4hQaEJqQT": "Zyber Punks",
+    "mtmIbxGTNvz7s6QS": "I do not know",
+    "xt3SkcGznD4SMXpV": "Mostwanted",
+    "pdccp4ZJQqArbio4": "Anonymous",
+    "a1XR3Cz5Dsexgqp1": "Firewall ",
+    "V1plUUmsJYTMR3Ve": "Mavericks",
+    "JlQWWpPLOXN2S2vM": "CyberWarriors",
+    "8iddhe1j2GQJbVJ3": "vadawow",
+    "QyY4AFpzpNyvvjGm": "Team Soona Paana"
+}
 let conf = {
     speed : width/5000,
     attackTransitionTime : 1000,
