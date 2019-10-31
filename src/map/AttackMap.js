@@ -177,9 +177,10 @@ class AttackMap {
 
         let cloudLength = 0;
         let heightEl = 0;
+        let pathArray = [];
 
         let trackPath = track.append('path')
-            .attr('d', `M0,0 C -${cloudLength / 2} ,${heightEl},   -${cloudLength / 2} , ${heightEl} ,-${cloudLength},0`)
+            .attr('d', arrayPosition(pathArray))
             .attr('stroke', '#fdea41')
             .attr('stroke-width', conf.cloudSize)
             .attr('fill', 'transparent')
@@ -197,12 +198,12 @@ class AttackMap {
             .attr('height', asteroidWidth * 2) // NO I18N
 
         let currentRadius = 0;
-        let time = radius / conf.speed;
+        let asteroidTime = radius / conf.speed;
         let maxElevation = radius / (Math.PI * 2);
 
         const interpolate = d3.interpolate(0, radius);
-        const t = this.svg.transition().duration(time);
-
+        const t = this.svg.transition().duration(asteroidTime);
+        let iteration = 0;
         attack.transition(t)
             .ease(d3.easeLinear)
             .tween("data", () => { // NO I18N
@@ -222,17 +223,28 @@ class AttackMap {
                 }
                 translate = translate * elevationFactor;
 
-                let cloudLength = Math.sqrt(currentRadius * currentRadius + translate * translate);
-                let heightEl = (maxElevation * time + (0 * maxElevation)) * elevationFactor * currentRadius / radius;
-                let xDiff = (radius / 7) * time;
-                let yDiff = (radius * 2 / 35) * time * elevationFactor;
+
+
+
 
                 if (!conf.isCloudTypeDot && !conf.noCloud) {
-                    trackPath
-                        .attr('d', `M0,0
-                        C   ${cloudLength / 2 - xDiff} , ${translate / 2 + heightEl + yDiff},
-                            ${cloudLength / 2 + xDiff} , ${translate / 2 + heightEl + yDiff} ,
-                            ${cloudLength},${translate}`)
+                    iteration ++;
+                    if(iteration%4===0){
+                        pathArray.push([currentRadius,translate])
+                        trackPath.attr('d',arrayPosition(pathArray))
+                    }
+                    if(time===1){
+                        const trackHiding = this.svg.transition().duration(asteroidTime);
+                        let trackLength = pathArray.length;
+                        trackPath.transition(trackHiding)
+                            .ease(d3.easeLinear)
+                            .attrTween('d',()=>(tt)=>{
+                                // console.log((trackLength*tt-pathArray.length))
+                                // pathArray.splice(0, (trackLength*tt-pathArray.length)*-1);
+                                return arrayPosition(pathArray.slice(trackLength*tt,pathArray.length));
+                            })
+                    }
+
                 } else if (!conf.noCloud) {
                     let gg = track.append('g')
                         .attr('transform', `translate(${currentRadius},${translate - conf.cloudSize / 2}) rotate(${currentAngle * elevationFactor})`)
@@ -250,8 +262,8 @@ class AttackMap {
             attack.remove();
             setTimeout(() => {
                 track.remove()
-            }, 1000)
-        }, time);
+            }, asteroidTime)
+        }, asteroidTime);
 
         setTimeout(() => {
             let destination = this.svg.append("image") // NO I18N
@@ -262,7 +274,7 @@ class AttackMap {
             setTimeout(() => {
                 destination.remove()
             }, conf.attackTransitionTime)
-        }, time)
+        }, asteroidTime)
     }
 
     plotTeams() {
@@ -383,6 +395,19 @@ function processTeams(teamList) {
         team.blueScore = 0;
     }
     return teamList;
+}
+
+
+function arrayPosition(array){
+    if(!array || array.length<1){
+        return "";
+    }
+    let i =0;
+    let result = `M ${array[i][0]} , ${array[i][1]}`
+    for(i=i+1;i<array.length;i++){
+        result += `L ${array[i][0]} , ${array[i][1]}`
+    }
+    return result
 }
 
 export default function (container) {

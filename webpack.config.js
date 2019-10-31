@@ -18,8 +18,8 @@ function resolve(dir) {
 module.exports = {
     devtool: devMode ? 'inline-source-map' : false, //No I18N
     entry: {
-        dashboard: __dirname + "/src/main.js", //No I18N
-        warmap: __dirname + "/src/map/warmapapp.js", //No I18N
+        dashboard: ["@babel/polyfill",__dirname + "/src/main.js"], //No I18N
+        warmap: ["@babel/polyfill",__dirname + "/src/map/warmapapp.js"] //No I18N
     },
     output: {
         path: __dirname + '/dist', // Folder to store generated bundle //NO I18N
