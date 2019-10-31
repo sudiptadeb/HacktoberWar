@@ -258,7 +258,9 @@ let conf = {
     explodeWidth : 200,
     requestAccessInfoForEvery : 10000,
     requestStatForEvery : 10000,
-    attackWaveGap :300
+    attackWaveGap :300,
+    randomTimeGap : 500,
+    calculatePosition :false
 };
 let maxIntensity = localStorage.maxIntensity || 10;
 
@@ -269,11 +271,12 @@ export default class AttackMap{
         this.teams = processTeams(teams);
         this.requiredIconList = ['asteroid', 'fire', 'cloud', 'fire2', 'red1', 'red2', 'red3', 'blue1', 'blue2', 'blue3'];
 
-        this.svg = d3.select(this.container)
-            .append("svg")
-            // .attr('preserveAspectRatio','none')
+        this.svg = d3.select(this.container).append("svg")
             .attr('viewBox', `0 0 ${width} ${height}`);
 
+        if(conf.calculatePosition){
+            this.svg.attr('preserveAspectRatio','none');
+        }
         this.loadSymbols();
         this.plotTeams();
         this.runForRandomValue();
@@ -325,7 +328,7 @@ export default class AttackMap{
         }catch (e) {
             console.log(from,to,intensity,e)
         }
-        setTimeout(()=>this.runForRandomValue(),Math.random()*50);
+        setTimeout(()=>this.runForRandomValue(),Math.random()*conf.randomTimeGap);
     }
 
 
@@ -463,18 +466,18 @@ export default class AttackMap{
         this.svg.append('image')
             .attr('href', map)
             .attr('width', width)
-            .attr('height', height)
+            .attr('height', height);
 
+        if(conf.calculatePosition){
+            document.body.addEventListener('click', function (e) {
+                let x = e.clientX;
+                let y = e.clientY;
+                clientWidth = document.body.clientWidth;
+                clientHeight = document.body.clientHeight;
+                console.log(x * width / clientWidth, y * height / clientHeight)
+            })
+        }
 
-
-
-        document.body.addEventListener('click', function (e) {
-            let x = e.clientX;
-            let y = e.clientY;
-            clientWidth = document.body.clientWidth;
-            clientHeight = document.body.clientHeight;
-            console.log(x * width / clientWidth, y * height / clientHeight)
-        })
 
         //  attack
         //     .append('g')
