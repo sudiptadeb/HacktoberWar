@@ -13,13 +13,13 @@
 				<div class="sb-list layout-row layout-align-space-between-start">
 					<transition-group name="flip-list" tag="ul" class="red-list">
 						<div class="team-box" v-for="team in redTeams" v-bind:key="team.name">
-							<div class="points">{{team.points}}</div>
+							<div class="points">{{team.redScore}}</div>
 							<div class="team-name">{{team.name}}</div>
 						</div>
 					</transition-group>
 					<transition-group name="flip-list" tag="ul" class="blue-list">
 						<div class="team-box" v-for="team in blueTeams" v-bind:key="team.name">
-							<div class="points">{{team.points}}</div>
+							<div class="points">{{team.blueScore}}</div>
 							<div class="team-name">{{team.name}}</div>
 						</div>
 					</transition-group>
@@ -33,82 +33,79 @@
 </template>
 
 <script>
-    import {shuffle} from "lodash";
-    export default {
+		import axios from "axios";
+		export default {
         name: "ScoreBoard",
         data() {
             return {
                 loaded: false,
-                shuffle: null,
-                redTeams: [
-                    {name: "Debug Thugs", points: 120},
-                    {name: "Verithanam Hackers", points: 100},
-                    {name: "Shadowkhan", points: 90},
-                    {name: "Fun Panrom", points: 80},
-                    {name: "Irakamatravargal", points: 70},
-                    {name: "HeartHackers", points: 70},
-                    {name: "Cliq Geeks", points: 70},
-                    {name: "I.E.U.P.", points: 70},
-                    {name: "CLIQ-GEEK", points: 70},
-                    {name: "SitesCyber", points: 70},
-                    {name: "CodeProject", points: 120},
-                    {name: "Searching...", points: 100},
-                    {name: "Christopher", points: 90},
-                    {name: "venom", points: 80},
-                    {name: "Virus", points: 70},
-                    {name: "Avengers", points: 70},
-                    {name: "SPARKS", points: 70},
-                    {name: "Zyber Punks", points: 70},
-                    {name: "I do not know", points: 70},
-                    {name: "Mostwanted", points: 70},
-                    {name: "Anonymous", points: 80},
-                    {name: "Firewall ", points: 70},
-                    {name: "Mavericks", points: 70},
-                    {name: "CyberWarriors", points: 70},
-                    {name: "vadawow", points: 70},
-                    {name: "Team Soona Paana", points: 70}
-                ],
-                blueTeams: [
-                    {name: "Debug Thugs", points: 120},
-                    {name: "Verithanam Hackers", points: 100},
-                    {name: "Shadowkhan", points: 90},
-                    {name: "Fun Panrom", points: 80},
-                    {name: "Irakamatravargal", points: 70},
-                    {name: "HeartHackers", points: 70},
-                    {name: "Cliq Geeks", points: 70},
-                    {name: "I.E.U.P.", points: 70},
-                    {name: "CLIQ-GEEK", points: 70},
-                    {name: "SitesCyber", points: 70},
-                    {name: "CodeProject", points: 120},
-                    {name: "Searching...", points: 100},
-                    {name: "Christopher", points: 90},
-                    {name: "venom", points: 80},
-                    {name: "Virus", points: 70},
-                    {name: "Avengers", points: 70},
-                    {name: "SPARKS", points: 70},
-                    {name: "Zyber Punks", points: 70},
-                    {name: "I do not know", points: 70},
-                    {name: "Mostwanted", points: 70},
-                    {name: "Anonymous", points: 80},
-                    {name: "Firewall ", points: 70},
-                    {name: "Mavericks", points: 70},
-                    {name: "CyberWarriors", points: 70},
-                    {name: "vadawow", points: 70},
-                    {name: "Team Soona Paana", points: 70}
-                ]
+								conf :null,
+								teams:null
             }
         },
-        created() {
-            setTimeout(function () {
-                this.loaded = true;
-            }.bind(this), 1);
+			computed:{
+				redTeams(){
+					if(!this.teams){
+						return []
+					}
+					let redScoreSorted = [...this.teams];
+					redScoreSorted.sort((a, b) => (  b.redScore-a.redScore));
+					return redScoreSorted;
+				},
+				blueTeams(){
+					if(!this.teams){
+						return []
+					}
+					let blueScoreSorted = [...this.teams];
+					blueScoreSorted.sort((a, b) => ( b.blueScore-a.blueScore));
+					return blueScoreSorted;
+				}
+			},
+			mounted(){
+        	let self = this;
+					require(['../map/conf'],(data)=>{
+						self.conf = data.conf;
+						self.teams = data.teams.map(each=>({name:each.name,redScore:0,blueScore:0}))
+						self.initMethod()
+					})
+			},
+			methods:{
+				initMethod(){
+        		if(this.conf.production){
+        			this.fetchStats();
+						}else{
+        			this.runForRandom();
+						}
+				},
+				fetchStats() {
+					axios.get(this.conf.statusUrl).then(res => {
+						this.loaded =true;
+						let data = res.data.Keyset_Stats;
+						data.forEach(each => {
+							let index = this.teams.findIndex(each => each.name === each.Team_name);
+							if (index !== -1) {
+								this.teams[index].redScore = each.RScore;
+								this.teams[index].blueScore = each.BScore;
+							}
+						});
+					});
 
-            this.shuffle = setInterval(function () {
-                this.redTeams = shuffle(this.redTeams);
-                this.blueTeams = shuffle(this.blueTeams);
-            }.bind(this), 5000);
-        }
+					setTimeout(() => {
+						this.fetchStats()
+					}, this.conf.requestStatForEvery)
+				},
+				runForRandom() {
+					for (let i = 0; i < this.teams.length; i++) {
+						let team = this.teams[i];
+						team.redScore = Math.ceil(Math.random() * this.teams.length) - 1;
+						team.blueScore = Math.ceil(Math.random() * this.teams.length) - 1;
+						this.loaded =true;
+				}
+					setTimeout(() => this.runForRandom(),  Math.random() * this.conf.randomTimeGap * 100);
+
+				}
     }
+		}
 </script>
 
 <style>
