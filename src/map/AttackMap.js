@@ -259,8 +259,9 @@ let conf = {
     requestAccessInfoForEvery : 10000,
     requestStatForEvery : 10000,
     attackWaveGap :300,
-    randomTimeGap : 500,
-    calculatePosition :false
+    randomTimeGap : 1000,
+    calculatePosition :false,
+    production :false
 };
 let maxIntensity = localStorage.maxIntensity || 10;
 
@@ -279,7 +280,12 @@ export default class AttackMap{
         }
         this.loadSymbols();
         this.plotTeams();
-        this.runForRandomValue();
+        if(conf.production){
+            this.fetchStats();
+            this.run();
+        }else{
+            this.runForRandomValue();
+        }
     }
 
     run(){
