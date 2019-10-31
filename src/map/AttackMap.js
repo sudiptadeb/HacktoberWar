@@ -75,7 +75,7 @@ class AttackMap {
             // console.log(res.data.Keyset_Stats);
             let data = res.data.Keyset_Stats;
             data.forEach(each => {
-                let index = this.teams.findIndex(each => each.name === each.Team_name);
+                let index = this.teams.findIndex(e => e.name === each.Team_name);
                 if (index !== -1) {
                     this.teams[index].redScore = each.RScore;
                     this.teams[index].blueScore = each.BScore;
@@ -299,11 +299,11 @@ class AttackMap {
 
     plotRank() {
         let redScoreSorted = [...this.teams];
-        redScoreSorted.sort((a, b) => a.redScore - b.redScore).forEach((each, i) => {
+        redScoreSorted.sort((a, b) =>  b.redScore -a.redScore).forEach((each, i) => {
             each.redRank = i + 1
         })
         let blueScoreSorted = [...this.teams];
-        blueScoreSorted.sort((a, b) => a.blueScore - b.blueScore).forEach((each, i) => {
+        blueScoreSorted.sort((a, b) => b.blueScore- a.blueScore).forEach((each, i) => {
             each.blueRank = i + 1
         });
         if (this.redRankContainer) {
@@ -313,7 +313,8 @@ class AttackMap {
             this.blueRankContainer.remove();
         }
 
-        this.redRankContainer = this.svg.append("g").selectAll("use")
+        this.redRankContainer = this.svg.append("g");
+        this.redRankContainer.selectAll("use")
             .data(this.teams.filter(each => each.redRank < 4))
             .enter()
             .append("use")
@@ -323,10 +324,12 @@ class AttackMap {
             .attr('width', conf.rankIconSize) // NO I18N
             .attr('height', conf.rankIconSize) // NO I18N
 
-        this.blueRankContainer = this.svg.append("g").selectAll("use")
+        this.blueRankContainer = this.svg.append("g");
+        this.blueRankContainer.selectAll("use")
             .data(this.teams.filter(each => each.blueRank < 4))
             .enter()
             .append("use")
+            .attr('data-name', each => each.name)
             .attr('style', team => `transform : translate(${team.blueBadgeLocation.x - conf.rankIconSize / 2}px,${team.blueBadgeLocation.y - conf.rankIconSize / 2}px) `)
             .attr('xlink:href', d => `#symbol-icon-blue${d.blueRank}`) // NO I18N
             .attr('width', conf.rankIconSize) // NO I18N
@@ -354,18 +357,10 @@ function processTeams(teamList) {
         let id = i;
         team.id = id;
         teamNameIdMap[team.name] = id;
-        // team.country = getByIsoId(selectedCountries[team.id]);
-        // let loc = projection([team.country.longitude, team.country.latitude]);
-        // 81 139
         let location = team.location || {x: 200, y: 200}
         team.location = {x: location.x + (81 / 2), y: location.y + (139 / 2)};
-
-        let redBadgeLocation = team.redBadgeLocation || {x: 200, y: 200}
-        team.redBadgeLocation = {x: redBadgeLocation.x, y: redBadgeLocation.y};
-        // let from  = Math.ceil( Math.random()*this.teams.length)-1;
-        // let to  = Math.ceil( Math.random()*this.teams.length)-1;
-        team.redScore = Math.ceil(Math.random() * teamList.length) - 1;
-        team.blueScore = Math.ceil(Math.random() * teamList.length) - 1;
+        team.redScore = 0;
+        team.blueScore = 0;
     }
     return teamList;
 }

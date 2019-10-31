@@ -82,7 +82,7 @@
 						this.loaded =true;
 						let data = res.data.Keyset_Stats;
 						data.forEach(each => {
-							let index = this.teams.findIndex(each => each.name === each.Team_name);
+							let index = this.teams.findIndex(e => e.name === each.Team_name);
 							if (index !== -1) {
 								this.teams[index].redScore = each.RScore;
 								this.teams[index].blueScore = each.BScore;
