@@ -189,42 +189,98 @@ let teams =[
         location : {x:669,y:775}
     }
 ]
-let teamNameMap = {},attackTransitionTime =1000;
+let teamNameIdMap = {};
 
-let speed =width/5000;
+let teamNameMapping ={
+
+};
+let conf = {
+    speed : width/5000,
+    attackTransitionTime : 1000,
+    noCloud:false,
+    cloudSize :10,
+    isCloudTypeDot : false,
+    asteroidSize : 50,
+    asteroidMaxSize :150,
+    explodeWidth : 200,
+    requestAccessInfoForEvery : 10000,
+    requestStatForEvery : 10000,
+    attackWaveGap :300
+};
+let maxIntensity = localStorage.maxIntensity || 10;
+
+
 export default class AttackMap{
     constructor (container){
         this.container =container;
-
-
-        axios.get("http://172.24.117.157:8080/getkeysetstats").then(res=>{console.log(res)})
         this.teams = processTeams(teams);
-        this.svg = d3.select(this.container)
+        this.requiredIconList=['asteroid','fire','cloud','fire2'];
 
+        this.svg = d3.select(this.container)
             .append("svg")
             // .attr('preserveAspectRatio','none')
             .attr('viewBox',`0 0 ${width} ${height}`);
 
-        this.requiredIconList=['asteroid','fire','cloud','fire2'];
         this.loadSymbols();
         this.plotTeams();
-        this.run();
+        this.runForRandomValue();
     }
 
     run(){
+        let noOfWaves = conf.requestAccessInfoForEvery/conf.attackWaveGap;
+        axios.get("http://172.24.117.157:8080/getkeysetstats").then(res=>{
+            console.log(res.data)
+            let fullList = res.data.res.data;
+            noOfWaves = Math.max(noOfWaves,fullList.length);
+            let objectPerWave = fullList.length/noOfWaves;
+
+            for(let i = 0;i<noOfWaves;i++){
+                let list  = fullList.slice(Math.floor(i*objectPerWave),Math.ceil((i+1)*objectPerWave));
+                setTimeout(()=>{
+                    list.forEach((obj,i)=>{
+                        try{
+                            let key = Object.keys(obj);
+                            let temp = key.split('-')
+                            let team1 = temp[0];
+                            let team2 = temp[1];
+                            this.drawCureve(teamNameIdMap[teamNameMapping[team1]],teamNameIdMap[teamNameMapping[team2]],obj[key]);
+
+                        }catch (e) {
+                        }
+                    })
+                },i&&conf.attackWaveGap);
+            }
+
+        });
+        setTimeout(()=>{this.run()},conf.requestAccessInfoForEvery)
+    }
+
+    fetchStats(){
+        axios.get("http://172.24.117.157:8080/getkeysetstats").then(res=>{
+            console.log(res.data.Keyset_Stats);
+        });
+        setTimeout(()=>{this.fetchStats()},conf.requestStatForEvery)
+    }
+
+    runForRandomValue(){
         let from  = Math.ceil( Math.random()*this.teams.length)-1;
         let to  = Math.ceil( Math.random()*this.teams.length)-1;
         let intensity = Math.ceil(Math.random() *5);
-       try{
+        try{
 
-           this.drawCureve(from,to,intensity);
-       }catch (e) {
-           console.log(from,to,intensity,e)
-       }
-        setTimeout(()=>this.run(),Math.random()*50);
+            this.drawCureve(from,to,intensity);
+        }catch (e) {
+            console.log(from,to,intensity,e)
+        }
+        setTimeout(()=>this.runForRandomValue(),Math.random()*50);
     }
 
+
+
     drawCureve(from,to, intensity){
+        if(intensity>maxIntensity){
+            localStorage.maxIntensity = maxIntensity = intensity;
+        }
         let fromTeam = this.teams[from];
         let toTeam = this.teams[to];
         let fromLocation = fromTeam.location;
@@ -233,14 +289,14 @@ export default class AttackMap{
         let y  = toLocation.y - fromLocation.y;
         let angle = 0;
         let dx = x,dy=y;
-        let oppsiteSide = dy;
+        let oppositeSide = dy;
         let elevationFactor =1;
         if(x>0){
             elevationFactor *=-1;
             if(y<0){
                 dy *=-1;
                 angle =270;
-                oppsiteSide = dx;
+                oppositeSide = dx;
             }
         }else{
             dx *=-1;
@@ -248,70 +304,50 @@ export default class AttackMap{
             if(y<0){
                 dy *=-1;
                 angle =180;
-                oppsiteSide = dy;
+                oppositeSide = dy;
             }else{
-                oppsiteSide = dx;
+                oppositeSide = dx;
             }
         }
         let radius = Math.sqrt(x*x +y*y);
-        angle += Math.asin(oppsiteSide/radius)* 180 / Math.PI;
-        // console.log(angle,radius,oppsiteSide/radius)
+        angle += Math.asin(oppositeSide/radius)* 180 / Math.PI;
 
-
-
-
+        
         let attackPos = `translate(${fromLocation.x},${fromLocation.y}) rotate(${angle})`;
-
-
+        
         let track = this.svg.append("g").attr('class','track') .attr('transform',attackPos);
 
-        let cloudSize = 10;
         let cloudLength=0;
         let heightEl = 0;
 
         let trackPath = track.append('path')
             .attr('d',`M0,0 C -${cloudLength/2} ,${heightEl},   -${cloudLength/2} , ${heightEl} ,-${cloudLength},0`)
             .attr('stroke','#fdea41')
-            .attr('stroke-width',cloudSize)
+            .attr('stroke-width',conf.cloudSize)
             .attr('fill','transparent')
             .attr('style','stroke-dasharray: 100;')
 
+
+
+
+
+        let asteroidWidth  = conf.asteroidSize+(intensity/maxIntensity)*(conf.asteroidMaxSize-conf.asteroidSize);
         let attack = this.svg.append("g") .attr('transform',attackPos);
-
-        let astroidWidth  = 50+intensity*10;
-        // attack.append("image")
-        //     .attr("width",astroidWidth)
-        //     .attr('style',`transform : translate(-${astroidWidth}px,0px) rotate(270deg)`)
-        //     .attr("href", astroid);
-
         attack
             .append('g')
-            .attr('transform',`translate(-${astroidWidth*2},${astroidWidth/2})  rotate(270)`)
+            .attr('transform',`translate(0,${asteroidWidth/2})  rotate(270)`)
             .append("use") // NO I18N
             .attr('xlink:href',d=>`#symbol-icon-asteroid`) // NO I18N
-            .attr('width',astroidWidth) // NO I18N
-            .attr('height',astroidWidth*2) // NO I18N
-
-
-
-        // let path = attack.append("path")
-        //     .attr("d", `M0,${astroidWidth}
-        //     C -${astroidWidth*2},0,    -${astroidWidth*2},0,     -${astroidWidth*4},0
-        //     C -${astroidWidth*2},0, -${astroidWidth*2},0,  0,-${astroidWidth}
-        //     C${astroidWidth} ,-${astroidWidth}, ${astroidWidth},${astroidWidth},   0,${astroidWidth} Z`)
-        //
-        //     .attr("fill", "#FFD04A")
-            // .attr("stroke", "#F36E21");
+            .attr('width',asteroidWidth) // NO I18N
+            .attr('height',asteroidWidth*2) // NO I18N
 
         let currentRadius = 0;
+        let time = radius/conf.speed;
+        let maxElevation = radius/(Math.PI*2);
 
-
-
-        let time = radius/speed;
         const interpolate = d3.interpolate( 0,radius);
         const t = this.svg.transition().duration(time);
 
-        let maxElevation = radius/(Math.PI*2)
         attack.transition(t)
             .ease(d3.easeLinear)
             .tween("data", () => { // NO I18N
@@ -329,36 +365,28 @@ export default class AttackMap{
                     currentAngle = 0 - Math.pow(t,exponent) * (intialAngle);
                     translate = maxElevation - Math.pow(t,exponent) * (maxElevation);
                 }
-
-
                 translate =translate*elevationFactor;
 
-                    let cloudLength=Math.sqrt(currentRadius*currentRadius+translate*translate);
-                    let heightEl = (maxElevation*time+(0*maxElevation))*elevationFactor*currentRadius/radius;
-                //3500
-                let xDiff = (radius*500/3500)*time;
-                let yDiff = (radius*200/3500)*time*elevationFactor;
+                let cloudLength=Math.sqrt(currentRadius*currentRadius+translate*translate);
+                let heightEl = (maxElevation*time+(0*maxElevation))*elevationFactor*currentRadius/radius;
+                let xDiff = (radius/7)*time;
+                let yDiff = (radius*2/35)*time*elevationFactor;
 
+                if(!conf.isCloudTypeDot && !conf.noCloud){
                     trackPath
                         .attr('d',`M0,0 
                         C   ${cloudLength/2-xDiff} , ${translate/2+heightEl+yDiff},   
                             ${cloudLength/2+xDiff} , ${translate/2+heightEl+yDiff} ,
                             ${cloudLength},${translate}`)
-
-
-
-                //
-                // let gg= track.append('g')
-                //     .attr('transform',`translate(${currentRadius},${translate-cloudSize/2}) rotate(${currentAngle*elevationFactor})`)
-                //
-                //
-                // gg.append('circle')
-                //     .attr('fill','#fdea41')
-                //     .attr('r',cloudSize/2)
-                //     .attr('cx',-cloudSize/2)
-                //     .attr('cy',-cloudSize/2)
-
-
+                }else if(!conf.noCloud){
+                    let gg= track.append('g')
+                        .attr('transform',`translate(${currentRadius},${translate-conf.cloudSize/2}) rotate(${currentAngle*elevationFactor})`)
+                    gg.append('circle')
+                        .attr('fill','#fdea41')
+                        .attr('r',conf.cloudSize/2)
+                        .attr('cx',-conf.cloudSize/2)
+                        .attr('cy',-conf.cloudSize/2)
+                }
                 return `${attackPos} translate(${currentRadius},${translate}) rotate(${currentAngle*elevationFactor})`;
             })
 
@@ -368,38 +396,14 @@ export default class AttackMap{
         setTimeout(()=>{ attack.remove();setTimeout(()=>{track.remove()},1000) },time);
 
         setTimeout(()=>{
-
-            // let destination = this.svg.append("circle")
-            //     .attr('transform',`translate(${toLocation.x},${toLocation.y})`)
-            //     .attr("r", 0)
-            //     .attr("fill", "transparent")
-            //     .attr("stroke", "#FFD04A")
-            //     .attr("stroke-width", "20")
-            //     .attr("fill-opacity", "0.6");
-
-
-                let fireWidth = 200;
-                let destination = this.svg.append("image") // NO I18N
-                    .attr('style',`transform : translate(${toLocation.x}px,${toLocation.y}px) translate(-${fireWidth/2}px,-${fireWidth*5/2-20}px) `)
-                    .attr('xlink:href',explosive) // NO I18N
-                    .attr('width',fireWidth) // NO I18N
-                    .attr('height',fireWidth*5) // NO I18N
-
-            let expanding = 200+intensity*5;
-
-            // const destinationInterpolate = d3.interpolate( 0,expanding);
-            // let destRad =0;
-            // destination.transition(this.svg.transition().duration(attackTransitionTime))
-            //     .tween("data", () => { // NO I18N
-            //         return t => (destRad = destinationInterpolate(t));
-            //     })
-            //     .attrTween("r", ()=>()=>destRad);
-
-            setTimeout(()=>{ destination.remove() },attackTransitionTime)
+            let destination = this.svg.append("image") // NO I18N
+                .attr('style',`transform : translate(${toLocation.x}px,${toLocation.y}px) translate(-${conf.explodeWidth/2}px,-${conf.explodeWidth*5/2-20}px) `)
+                .attr('xlink:href',explosive) // NO I18N
+                .attr('width',conf.explodeWidth) // NO I18N
+                .attr('height',conf.explodeWidth*5) // NO I18N
+            setTimeout(()=>{ destination.remove() },conf.attackTransitionTime)
         },time)
     }
-
-
 
     plotTeams(){
 
@@ -474,7 +478,7 @@ function processTeams(teamList){
         let team = teamList[i];
         let id = i;
         team.id = id;
-        teamNameMap[team.name] = id;
+        teamNameIdMap[team.name] = id;
         // team.country = getByIsoId(selectedCountries[team.id]);
         // let loc = projection([team.country.longitude, team.country.latitude]);
         // 81 139
