@@ -18,7 +18,8 @@ function resolve(dir) {
 module.exports = {
     devtool: devMode ? 'inline-source-map' : false, //No I18N
     entry: {
-        dashboard: __dirname + "/src/main.js" //No I18N
+        dashboard: __dirname + "/src/main.js", //No I18N
+        warmap: __dirname + "/src/map/warmapapp.js", //No I18N
     },
     output: {
         path: __dirname + '/dist', // Folder to store generated bundle //NO I18N
@@ -168,6 +169,17 @@ module.exports = {
             template: "./src/index.html",//NO I18N
             filename: "./index.html",//NO I18N
             chunks: ["dashboard"], //NO I18N
+            favicon: "./src//assets/img/favicon.ico" //NO I18N
+        }),
+        new HtmlWebPackPlugin({
+            template: "./src/warmap.html",//NO I18N
+            filename: "./warmap.html",//NO I18N
+            chunks: ["warmap"], //NO I18N
+            favicon: "./src//assets/img/favicon.ico" //NO I18N
+        }),
+        new HtmlWebPackPlugin({
+            template: "./src/break.html",//NO I18N
+            filename: "./break.html",//NO I18N
             favicon: "./src//assets/img/favicon.ico" //NO I18N
         }),
         new MiniCssExtractPlugin({
