@@ -295,9 +295,9 @@ export const blueTeamMapping ={
 export const  conf = {
     speed : width/5000,
     attackTransitionTime : 1000,
-    noCloud:false,
-    cloudSize :10,
-    isCloudTypeDot : false,
+    noTail:false,
+    tailPointsGap :2,
+    tailSize :10,
     asteroidSize : 50,
     asteroidMaxSize :150,
     explodeWidth : 200,
