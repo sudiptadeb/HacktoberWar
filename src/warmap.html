@@ -95,6 +95,76 @@
 				opacity: 0;
 			}
 		}
+
+
+
+
+		@-webkit-keyframes pulse {
+			0% {
+				stroke: #FFF5A5;
+				fill: #45CEEF;
+			}
+			25% {
+				stroke: #FFD4DA;
+				fill: #FFF5A5;
+			}
+			50% {
+				stroke: #99D2E4;
+				fill: #FFD4DA;
+			}
+			75% {
+				stroke: #D8CAB4;
+				fill: #99D2E4; }
+			100% {
+				stroke: #45CEEF;
+				fill: #D8CAB4;
+			}
+		}
+		@keyframes pulse {
+			0% {
+				stroke: #FFF5A5;
+				fill: #45CEEF;
+			}
+			25% {
+				stroke: #FFD4DA;
+				fill: #FFF5A5;
+			}
+			50% {
+				stroke: #99D2E4;
+				fill: #FFD4DA;
+			}
+			75% {
+				stroke: #D8CAB4;
+				fill: #99D2E4; }
+			100% {
+				stroke: #45CEEF;
+				fill: #D8CAB4;
+			}
+		}
+		.spark_1,
+		.spark_2,
+		.spark_3 {
+			fill: #45CEEF;
+			stroke: #FFF5A5;
+			-webkit-animation-duration: 3s;
+			-webkit-animation-name: pulse;
+			-webkit-animation-iteration-count: infinite;
+			animation-duration: 3s;
+			animation-name: pulse;
+			animation-iteration-count: infinite;
+		}
+		.spark_1 {
+			-webkit-animation-delay: 0.11s;
+			animation-delay: 0.11s;
+		}
+		.spark_2 {
+			-webkit-animation-delay: 0.21s;
+			animation-delay: 0.21s;
+		}
+		.spark_3 {
+			-webkit-animation-delay: 0.31s;
+			animation-delay: 0.31s;
+		}
 	</style>
 </body>
 </html>

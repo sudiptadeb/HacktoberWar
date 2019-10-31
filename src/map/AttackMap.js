@@ -15,7 +15,7 @@ class AttackMap {
     constructor(container) {
         this.container = container;
         this.teams = processTeams(teams);
-        this.requiredIconList = ['asteroid', 'fire', 'cloud', 'fire2', 'red-1', 'red-2', 'red-3', 'blue-1', 'blue-2', 'blue-3'];
+        this.requiredIconList = ['asteroid', 'fire', 'cloud', 'fire2', 'red-1', 'red-2', 'red-3', 'blue-1', 'blue-2', 'blue-3','firework'];
 
         this.svg = d3.select(this.container).append("svg")
             .attr('viewBox', `0 0 ${width} ${height}`);
@@ -32,6 +32,7 @@ class AttackMap {
             this.runForRandomValue();
             this.runForRandomRank();
         }
+
     }
 
     run() {
@@ -70,6 +71,17 @@ class AttackMap {
         }, conf.requestAccessInfoForEvery)
     }
 
+    fireworkAt(location){
+        let firework = this.svg.append("use") // NO I18N
+            .attr('style', `transform : translate(${location.x}px,${location.y}px) translate(-${conf.fireworkWidth / 2}px,-${conf.fireworkWidth /2}px) `)
+            .attr('xlink:href', d => `#symbol-icon-firework`) // NO I18N
+            .attr('width', conf.fireworkWidth) // NO I18N
+            .attr('height', conf.fireworkWidth) // NO I18N
+        setTimeout(() => {
+            firework.remove()
+        }, conf.attackTransitionTime)
+    }
+
     fetchStats() {
         axios.get(conf.statusUrl).then(res => {
             // console.log(res.data.Keyset_Stats);
@@ -82,7 +94,7 @@ class AttackMap {
                     RScore : 0
                 }
             })
-            data.blue_team.forEach(each=>{
+            data.red_team.forEach(each=>{
                 let old = map[each.team_name];
                 map[each.team_name]={
                     Team_name:each.team_name,
@@ -128,7 +140,7 @@ class AttackMap {
         } catch (e) {
             console.log(e)
         }
-        setTimeout(() => this.runForRandomRank(), Math.random() * conf.randomTimeGap * 100);
+        setTimeout(() => this.runForRandomRank(), Math.random() * conf.randomTimeGap*30);
     }
 
 
@@ -175,8 +187,6 @@ class AttackMap {
 
         let track = this.svg.append("g").attr('class', 'track').attr('transform', attackPos);
 
-        let cloudLength = 0;
-        let heightEl = 0;
         let pathArray = [];
 
         let trackPath = track.append('path')
@@ -184,7 +194,6 @@ class AttackMap {
             .attr('stroke', '#fdea41')
             .attr('stroke-width', conf.tailSize)
             .attr('fill', 'transparent')
-            // .attr('style', 'stroke-dasharray: 100;')
 
 
         let asteroidWidth = conf.asteroidSize + (intensity / maxIntensity) * (conf.asteroidMaxSize - conf.asteroidSize);
@@ -223,10 +232,6 @@ class AttackMap {
                 }
                 translate = translate * elevationFactor;
 
-
-
-
-
                 if (!conf.noTail) {
                     iteration ++;
                     if(iteration%conf.tailPointsGap===0 || !time || time===1){
@@ -253,11 +258,12 @@ class AttackMap {
         }, asteroidTime);
 
         setTimeout(() => {
+            let explodeWidth  =conf.explodeMinWidth + (intensity / maxIntensity)*(conf.explodeMaxWidth-conf.explodeMinWidth);
             let destination = this.svg.append("image") // NO I18N
-                .attr('style', `transform : translate(${toLocation.x}px,${toLocation.y}px) translate(-${conf.explodeWidth / 2}px,-${conf.explodeWidth * 5 / 2 - 20}px) `)
+                .attr('style', `transform : translate(${toLocation.x}px,${toLocation.y}px) translate(-${explodeWidth / 2}px,-${explodeWidth * 5 / 2 - 20}px) `)
                 .attr('xlink:href', explosive) // NO I18N
-                .attr('width', conf.explodeWidth) // NO I18N
-                .attr('height', conf.explodeWidth * 5) // NO I18N
+                .attr('width', explodeWidth) // NO I18N
+                .attr('height', explodeWidth * 5) // NO I18N
             setTimeout(() => {
                 destination.remove()
             }, conf.attackTransitionTime)
@@ -316,10 +322,16 @@ class AttackMap {
     plotRank() {
         let redScoreSorted = [...this.teams];
         redScoreSorted.sort((a, b) =>  b.redScore -a.redScore).forEach((each, i) => {
+            if(each.redRank>i+1){
+                this.fireworkAt(each.redBadgeLocation);
+            }
             each.redRank = i + 1
         })
         let blueScoreSorted = [...this.teams];
         blueScoreSorted.sort((a, b) => b.blueScore- a.blueScore).forEach((each, i) => {
+            if(each.blueRank>i+1){
+                this.fireworkAt(each.blueBadgeLocation);
+            }
             each.blueRank = i + 1
         });
         if (this.redRankContainer) {
@@ -394,9 +406,10 @@ function arrayPosition(array,from=0,to){
 
     to = (to===undefined)?array.length:to;
     to = Math.min(array.length,to);
-    if(from>to){
+    if(from>=to){
         return "";
     }
+
     let result = `M ${array[i][0]} , ${array[i][1]}`
     for(i=i+1;i<to;i++){
         result += `L ${array[i][0]} , ${array[i][1]}`
