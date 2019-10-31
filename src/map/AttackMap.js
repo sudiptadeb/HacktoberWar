@@ -229,7 +229,7 @@ class AttackMap {
 
                 if (!conf.isCloudTypeDot && !conf.noCloud) {
                     iteration ++;
-                    if(iteration%4===0){
+                    if(iteration%10===0){
                         pathArray.push([currentRadius,translate])
                         trackPath.attr('d',arrayPosition(pathArray))
                     }
