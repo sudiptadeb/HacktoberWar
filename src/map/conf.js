@@ -309,5 +309,5 @@ export const  conf = {
     calculatePosition :false,
     rankIconSize : 120,
     warLogUrl : "https://wafer.zohosecurity.team/appsense/warlog",
-    statusUrl : "http://172.24.117.157:8080/getkeysetstats"
+    statusUrl : "http://172.24.117.157:8080/getscore"
 };
