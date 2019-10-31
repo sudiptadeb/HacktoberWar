@@ -182,7 +182,7 @@ class AttackMap {
         let trackPath = track.append('path')
             .attr('d', arrayPosition(pathArray))
             .attr('stroke', '#fdea41')
-            .attr('stroke-width', conf.cloudSize)
+            .attr('stroke-width', conf.tailSize)
             .attr('fill', 'transparent')
             // .attr('style', 'stroke-dasharray: 100;')
 
@@ -227,9 +227,9 @@ class AttackMap {
 
 
 
-                if (!conf.isCloudTypeDot && !conf.noCloud) {
+                if (!conf.noTail) {
                     iteration ++;
-                    if(iteration%5===0 || !time || time===1){
+                    if(iteration%conf.tailPointsGap===0 || !time || time===1){
                         pathArray.push([currentRadius,translate])
                         trackPath.attr('d',arrayPosition(pathArray))
                     }
@@ -238,21 +238,8 @@ class AttackMap {
                         let trackLength = pathArray.length;
                         trackPath.transition(trackHiding)
                             .ease(d3.easeLinear)
-                            .attrTween('d',()=>(tt)=>{
-                                // console.log((trackLength*tt-pathArray.length))
-                                // pathArray.splice(0, (trackLength*tt-pathArray.length)*-1);
-                                return arrayPosition(pathArray.slice(trackLength*tt,pathArray.length));
-                            })
+                            .attrTween('d',()=>(tt)=> arrayPosition(pathArray,Math.round(trackLength*tt),trackLength))
                     }
-
-                } else if (!conf.noCloud) {
-                    let gg = track.append('g')
-                        .attr('transform', `translate(${currentRadius},${translate - conf.cloudSize / 2}) rotate(${currentAngle * elevationFactor})`)
-                    gg.append('circle')
-                        .attr('fill', '#fdea41')
-                        .attr('r', conf.cloudSize / 2)
-                        .attr('cx', -conf.cloudSize / 2)
-                        .attr('cy', -conf.cloudSize / 2)
                 }
                 return `${attackPos} translate(${currentRadius},${translate}) rotate(${currentAngle * elevationFactor})`;
             })
@@ -398,13 +385,20 @@ function processTeams(teamList) {
 }
 
 
-function arrayPosition(array){
+function arrayPosition(array,from=0,to){
     if(!array || array.length<1){
         return "";
     }
-    let i =0;
+    let i =from;
+
+
+    to = (to===undefined)?array.length:to;
+    to = Math.min(array.length,to);
+    if(from>to){
+        return "";
+    }
     let result = `M ${array[i][0]} , ${array[i][1]}`
-    for(i=i+1;i<array.length;i++){
+    for(i=i+1;i<to;i++){
         result += `L ${array[i][0]} , ${array[i][1]}`
     }
     return result
