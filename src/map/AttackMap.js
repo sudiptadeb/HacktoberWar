@@ -184,7 +184,7 @@ class AttackMap {
             .attr('stroke', '#fdea41')
             .attr('stroke-width', conf.cloudSize)
             .attr('fill', 'transparent')
-            .attr('style', 'stroke-dasharray: 100;')
+            // .attr('style', 'stroke-dasharray: 100;')
 
 
         let asteroidWidth = conf.asteroidSize + (intensity / maxIntensity) * (conf.asteroidMaxSize - conf.asteroidSize);
@@ -229,7 +229,7 @@ class AttackMap {
 
                 if (!conf.isCloudTypeDot && !conf.noCloud) {
                     iteration ++;
-                    if(iteration%10===0){
+                    if(iteration%5===0 || !time || time===1){
                         pathArray.push([currentRadius,translate])
                         trackPath.attr('d',arrayPosition(pathArray))
                     }
