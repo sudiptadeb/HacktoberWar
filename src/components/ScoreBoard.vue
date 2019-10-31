@@ -80,7 +80,26 @@
 				fetchStats() {
 					axios.get(this.conf.statusUrl).then(res => {
 						this.loaded =true;
-						let data = res.data.Keyset_Stats;
+
+						let data = res.data;
+						let map ={};
+						data.blue_team.forEach(each=>{
+							map[each.team_name]={
+								Team_name:each.team_name,
+								BScore:each.total_score,
+								RScore : 0
+							}
+						})
+						data.blue_team.forEach(each=>{
+							let old = map[each.team_name];
+							map[each.team_name]={
+								Team_name:each.team_name,
+								BScore:old && old.total_score || 0,
+								RScore : each.total_score
+							}
+						});
+						data = Object.values(map);
+
 						data.forEach(each => {
 							let index = this.teams.findIndex(e => e.name === each.Team_name);
 							if (index !== -1) {
