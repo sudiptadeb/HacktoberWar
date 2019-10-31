@@ -85,8 +85,8 @@ let teams = [
         "attackScore": 5,
         "damageScore": 8,
         location: { x: 6203, y: 2891 },
-        redBadgeLocation: { x: 6205, y: 2250 },
-        blueBadgeLocation: { x: 6437, y: 2282 }
+        redBadgeLocation: { x: 6187, y: 2561 },
+        blueBadgeLocation: { x: 6379, y: 2596 }
     },
     {
         "name": "SitesCyber",
