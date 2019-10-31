@@ -261,7 +261,9 @@ let conf = {
     attackWaveGap :300,
     randomTimeGap : 1000,
     calculatePosition :false,
-    production :false
+    production :false,
+    calculatePosition :false,
+    rankIconSize : 120
 };
 let maxIntensity = localStorage.maxIntensity || 10;
 
@@ -285,6 +287,7 @@ export default class AttackMap{
             this.run();
         }else{
             this.runForRandomValue();
+            this.runForRandomRank();
         }
     }
 
@@ -320,6 +323,15 @@ export default class AttackMap{
     fetchStats(){
         axios.get("http://172.24.117.157:8080/getkeysetstats").then(res=>{
             console.log(res.data.Keyset_Stats);
+            let data = res.data.Keyset_Stats;
+            data.forEach(each => {
+                let index = this.teamList.findIndex(each=> each.name===each.Team_name);
+                if(index!=-1) {
+                    this.teamList[index].redScore= each.RScore;
+                    this.teamList[index].blueScore= each.BScore;
+                }
+            });
+            this.plotRank();
         });
         setTimeout(()=>{this.fetchStats()},conf.requestStatForEvery)
     }
@@ -329,12 +341,25 @@ export default class AttackMap{
         let to  = Math.ceil( Math.random()*this.teams.length)-1;
         let intensity = Math.ceil(Math.random() *5);
         try{
-
             this.drawCureve(from,to,intensity);
         }catch (e) {
             console.log(from,to,intensity,e)
         }
         setTimeout(()=>this.runForRandomValue(),Math.random()*conf.randomTimeGap);
+    }
+
+    runForRandomRank(){
+        try{
+            for (let i = 0; i < this.teams.length; i++) {
+                let team = this.teams[i];
+                team.redScore = Math.ceil( Math.random()*this.teams.length)-1;
+                team.blueScore = Math.ceil( Math.random()*this.teams.length)-1;
+            }
+            this.plotRank();
+        }catch (e) {
+            console.log(e)
+        }
+        setTimeout(()=>this.runForRandomRank(),Math.random()*conf.randomTimeGap*100);
     }
 
 
@@ -484,7 +509,6 @@ export default class AttackMap{
             })
         }
 
-
         //  attack
         //     .append('g')
         //     .attr('transform',`translate(-${astroidWidth*2},${astroidWidth/2})  rotate(270)`)
@@ -493,26 +517,7 @@ export default class AttackMap{
         //     .attr('width',astroidWidth) // NO I18N
         //     .attr('height',astroidWidth*2) // NO I18N
 
-        let fireWidth = 120;
 
-        this.redRankContainer = this.svg.append("g").selectAll("use")
-            .data(this.teams.filter(each => each.redRank < 4))
-            .enter()
-            .append("use")
-            .attr('data-name', each => each.name)
-            .attr('style', team => `transform : translate(${team.redBadgeLocation.x - fireWidth / 2}px,${team.redBadgeLocation.y - fireWidth / 2}px) `)
-            .attr('xlink:href', d => `#symbol-icon-red${d.redRank}`) // NO I18N
-            .attr('width', fireWidth) // NO I18N
-            .attr('height', fireWidth) // NO I18N
-
-        this.blueRankContainer = this.svg.append("g").selectAll("use")
-            .data(this.teams.filter(each => each.blueRank < 4))
-            .enter()
-            .append("use")
-            .attr('style', team => `transform : translate(${team.blueBadgeLocation.x - fireWidth / 2}px,${team.blueBadgeLocation.y - fireWidth / 2}px) `)
-            .attr('xlink:href', d => `#symbol-icon-blue${d.blueRank}`) // NO I18N
-            .attr('width', fireWidth) // NO I18N
-            .attr('height', fireWidth) // NO I18N
 
 
         // country.append("circle")
@@ -539,6 +544,38 @@ export default class AttackMap{
             .html(d => d.html);
 
     }
+
+    plotRank() {
+        let redScoreSorted = [...this.teams];
+        redScoreSorted.sort((a,b)=> a.redScore-b.redScore).forEach((each,i)=>{each.redRank= i+1})
+        let blueScoreSorted = [...this.teams];
+        blueScoreSorted.sort((a,b)=> a.blueScore-b.blueScore).forEach((each,i)=>{each.blueRank= i+1});
+        if( this.redRankContainer){
+            this.redRankContainer.remove();
+        }
+        if( this.blueRankContainer){
+            this.blueRankContainer.remove();
+        }
+
+        this.redRankContainer = this.svg.append("g").selectAll("use")
+        .data(this.teams.filter(each => each.redRank < 4))
+        .enter()
+        .append("use")
+        .attr('data-name', each => each.name)
+        .attr('style', team => `transform : translate(${team.redBadgeLocation.x - conf.rankIconSize / 2}px,${team.redBadgeLocation.y - conf.rankIconSize / 2}px) `)
+        .attr('xlink:href', d => `#symbol-icon-red${d.redRank}`) // NO I18N
+        .attr('width', conf.rankIconSize) // NO I18N
+        .attr('height', conf.rankIconSize) // NO I18N
+
+    this.blueRankContainer = this.svg.append("g").selectAll("use")
+        .data(this.teams.filter(each => each.blueRank < 4))
+        .enter()
+        .append("use")
+        .attr('style', team => `transform : translate(${team.blueBadgeLocation.x - conf.rankIconSize / 2}px,${team.blueBadgeLocation.y - conf.rankIconSize / 2}px) `)
+        .attr('xlink:href', d => `#symbol-icon-blue${d.blueRank}`) // NO I18N
+        .attr('width', conf.rankIconSize) // NO I18N
+        .attr('height', conf.rankIconSize) // NO I18N
+    }
 }
 // return object country
 
@@ -564,11 +601,14 @@ function processTeams(teamList) {
 
         let redBadgeLocation = team.redBadgeLocation || { x: 200, y: 200 }
         team.redBadgeLocation = { x: redBadgeLocation.x, y: redBadgeLocation.y };
-        team.redRank = i;
-        team.blueRank = i;
+        // let from  = Math.ceil( Math.random()*this.teams.length)-1;
+        // let to  = Math.ceil( Math.random()*this.teams.length)-1;
+        team.redScore = Math.ceil( Math.random()*teamList.length)-1;
+        team.blueScore = Math.ceil( Math.random()*teamList.length)-1;
     }
     return teamList;
 }
+
 
 
 
