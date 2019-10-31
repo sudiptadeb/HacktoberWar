@@ -15,7 +15,7 @@ class AttackMap {
     constructor(container) {
         this.container = container;
         this.teams = processTeams(teams);
-        this.requiredIconList = ['asteroid', 'fire', 'cloud', 'fire2', 'red1', 'red2', 'red3', 'blue1', 'blue2', 'blue3'];
+        this.requiredIconList = ['asteroid', 'fire', 'cloud', 'fire2', 'red-1', 'red-2', 'red-3', 'blue-1', 'blue-2', 'blue-3'];
 
         this.svg = d3.select(this.container).append("svg")
             .attr('viewBox', `0 0 ${width} ${height}`);
@@ -323,7 +323,7 @@ class AttackMap {
             .append("use")
             .attr('data-name', each => each.name)
             .attr('style', team => `transform : translate(${team.redBadgeLocation.x - conf.rankIconSize / 2}px,${team.redBadgeLocation.y - conf.rankIconSize / 2}px) `)
-            .attr('xlink:href', d => `#symbol-icon-red${d.redRank}`) // NO I18N
+            .attr('xlink:href', d => `#symbol-icon-red-${d.redRank}`) // NO I18N
             .attr('width', conf.rankIconSize) // NO I18N
             .attr('height', conf.rankIconSize) // NO I18N
 
@@ -334,7 +334,7 @@ class AttackMap {
             .append("use")
             .attr('data-name', each => each.name)
             .attr('style', team => `transform : translate(${team.blueBadgeLocation.x - conf.rankIconSize / 2}px,${team.blueBadgeLocation.y - conf.rankIconSize / 2}px) `)
-            .attr('xlink:href', d => `#symbol-icon-blue${d.blueRank}`) // NO I18N
+            .attr('xlink:href', d => `#symbol-icon-blue-${d.blueRank}`) // NO I18N
             .attr('width', conf.rankIconSize) // NO I18N
             .attr('height', conf.rankIconSize) // NO I18N
     }
