@@ -195,7 +195,7 @@ export default class AttackMap{
         }catch (e) {
             console.log(from,to,intensity,e)
         }
-        // setTimeout(()=>this.run(),Math.random()*1000);
+        // setTimeout(()=>this.runForRandonValue(),Math.random()*1000);
     }
 
     drawCureve(from,to, intensity){
