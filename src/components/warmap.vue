@@ -5,11 +5,10 @@
 
 <script>
     import AttackMap from '../map/AttackMap'
-    let asm =null;
     export default {
         name: "WarMap",
         mounted() {
-            asm = new AttackMap(this.$el);
+            AttackMap(this.$el);
         },
         methods: {}
     }
