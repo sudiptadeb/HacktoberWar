@@ -86,20 +86,19 @@
 						data.blue_team.forEach(each=>{
 							map[each.team_name]={
 								Team_name:each.team_name,
-								BScore:each.total_score,
+								BScore:each.total_score || 0,
 								RScore : 0
 							}
 						})
-						data.blue_team.forEach(each=>{
+						data.red_team.forEach(each=>{
 							let old = map[each.team_name];
 							map[each.team_name]={
 								Team_name:each.team_name,
-								BScore:old && old.total_score || 0,
-								RScore : each.total_score
+								BScore:old && old.BScore || 0,
+								RScore : each.total_score || 0
 							}
 						});
 						data = Object.values(map);
-
 						data.forEach(each => {
 							let index = this.teams.findIndex(e => e.name === each.Team_name);
 							if (index !== -1) {

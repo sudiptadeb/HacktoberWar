@@ -87,10 +87,11 @@ class AttackMap {
             // console.log(res.data.Keyset_Stats);
             let data = res.data;
             let map ={};
+            this.loaded =true;
             data.blue_team.forEach(each=>{
                 map[each.team_name]={
                     Team_name:each.team_name,
-                    BScore:each.total_score,
+                    BScore:each.total_score || 0,
                     RScore : 0
                 }
             })
@@ -98,8 +99,8 @@ class AttackMap {
                 let old = map[each.team_name];
                 map[each.team_name]={
                     Team_name:each.team_name,
-                    BScore:old && old.total_score || 0,
-                    RScore : each.total_score
+                    BScore:old && old.BScore || 0,
+                    RScore : each.total_score || 0
                 }
             });
             data = Object.values(map);
