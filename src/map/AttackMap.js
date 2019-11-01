@@ -52,13 +52,14 @@ class AttackMap {
                     incList.push(each)
                 }
             }
+            let attackWaveGap = conf.requestAccessInfoForEvery/noOfWaves;
+
             console.log("-------------------")
             console.log(fullList.length)
             fullList =shuffle(incList);
             console.log(fullList.length)
 
             noOfWaves = Math.min(noOfWaves, fullList.length);
-            let attackWaveGap = conf.requestAccessInfoForEvery/noOfWaves;
 
             let objectPerWave = fullList.length / noOfWaves;
 
@@ -81,6 +82,7 @@ class AttackMap {
                         }
                     })
                 }, i && attackWaveGap);
+                console.log('time',i && attackWaveGap)
             }
 
         });
