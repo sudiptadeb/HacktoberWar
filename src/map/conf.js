@@ -305,11 +305,12 @@ export const  conf = {
     fireworkWidth :300,
     requestAccessInfoForEvery : 15000,
     requestStatForEvery : 20000,
-    attackWaveGap :300,
+    attackWaveGap :1500,
     randomTimeGap : 1000,
     production :true,
     calculatePosition :false,
     rankIconSize : 170,
     warLogUrl : "https://wafer.zohosecurity.team/appsense/warlog",
-    statusUrl : "http://172.24.117.157:8080/getscore"
+    statusUrl : "http://172.24.117.157:8080/getscore",
+    asteroidIncrementFactor:5
 };
