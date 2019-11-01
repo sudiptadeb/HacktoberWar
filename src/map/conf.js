@@ -307,7 +307,7 @@ export const  conf = {
     requestStatForEvery : 20000,
     attackWaveGap :300,
     randomTimeGap : 1000,
-    production :false,
+    production :true,
     calculatePosition :false,
     rankIconSize : 120,
     warLogUrl : "https://wafer.zohosecurity.team/appsense/warlog",
