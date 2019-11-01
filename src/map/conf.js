@@ -303,7 +303,7 @@ export const  conf = {
     explodeMinWidth : 125,
     explodeMaxWidth : 300,
     fireworkWidth :300,
-    requestAccessInfoForEvery : 15000,
+    requestAccessInfoForEvery : 9000,
     requestStatForEvery : 20000,
     attackWaveGap :1500,
     randomTimeGap : 1000,

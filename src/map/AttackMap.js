@@ -88,8 +88,8 @@ class AttackMap {
             this.run()
         }, conf.requestAccessInfoForEvery)
     }
-    getRandomTeam(val){
-        let res = teamNameIdMap[redTeamMapping[val]];
+    getRandomTeam(teamName){
+        let res = teamNameIdMap[redTeamMapping[teamName]];
         if(!this.availList){
             this.availList =[];
             this.teams.forEach((each,i)=>{
@@ -97,19 +97,29 @@ class AttackMap {
             })
         }
         if(res!==undefined){
-            this.randomTeamMap[val] = res;
-            this.availList.splice(this.availList.indexOf(res),1)
+            let ind = this.availList.indexOf(res);
+            if(ind!==-1){
+                this.availList.splice(this.availList.indexOf(res),1)
+            }else if(this.randomTeamMap[teamName] !==res && this.randomTeamMap[teamName]!==undefined){
+                for(let key in this.randomTeamMap){
+                    if(this.randomTeamMap[key] ===res && key!==teamName){
+                        delete this.randomTeamMap[key];
+                        break;
+                    }
+                }
+            }
+            this.randomTeamMap[teamName] = res;
             return res;
         }
 
         this.randomTeamMap = this.randomTeamMap || {};
-        if(this.randomTeamMap[val]===undefined){
+        if(this.randomTeamMap[teamName]===undefined){
             let ind =Math.floor(this.availList.length * Math.random());
-            this.randomTeamMap[val]=this.availList[ind];
+            this.randomTeamMap[teamName]=this.availList[ind];
             this.availList.splice(ind,1)
 
         }
-        return this.randomTeamMap[val];
+        return this.randomTeamMap[teamName];
     }
 
     fireworkAt(location){
