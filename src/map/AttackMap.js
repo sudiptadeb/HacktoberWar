@@ -322,14 +322,14 @@ class AttackMap {
 
     plotRank() {
         let redScoreSorted = [...this.teams];
-        redScoreSorted.sort((a, b) =>  b.redScore -a.redScore).forEach((each, i) => {
+        redScoreSorted.sort((a, b) =>  (b.redScore -a.redScore ||  b.blueScore- a.blueScore) ).forEach((each, i) => {
             if(each.redRank>i+1){
                 this.fireworkAt(each.redBadgeLocation);
             }
             each.redRank = i + 1
         })
         let blueScoreSorted = [...this.teams];
-        blueScoreSorted.sort((a, b) => b.blueScore- a.blueScore).forEach((each, i) => {
+        blueScoreSorted.sort((a, b) =>( b.blueScore- a.blueScore || b.redScore-a.redScore) ).forEach((each, i) => {
             if(each.blueRank>i+1){
                 this.fireworkAt(each.blueBadgeLocation);
             }

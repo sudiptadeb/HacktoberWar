@@ -49,7 +49,7 @@
 						return []
 					}
 					let redScoreSorted = [...this.teams];
-					redScoreSorted.sort((a, b) => (  b.redScore-a.redScore));
+					redScoreSorted.sort((a, b) => (  b.redScore-a.redScore ||  b.blueScore-a.blueScore));
 					return redScoreSorted;
 				},
 				blueTeams(){
@@ -57,7 +57,7 @@
 						return []
 					}
 					let blueScoreSorted = [...this.teams];
-					blueScoreSorted.sort((a, b) => ( b.blueScore-a.blueScore));
+					blueScoreSorted.sort((a, b) => ( b.blueScore-a.blueScore || b.redScore-a.redScore ));
 					return blueScoreSorted;
 				}
 			},
@@ -65,7 +65,15 @@
         	let self = this;
 					require(['../map/conf'],(data)=>{
 						self.conf = data.conf;
-						self.teams = data.teams.map(each=>({name:each.name,redScore:0,blueScore:0}))
+						self.teams = data.teams.sort(function (a, b) {
+							if (a.name < b.name) {
+								return -1;
+							}
+							if (a.name > b.name) {
+								return 1;
+							}
+							return 0;
+						}).map(each=>({name:each.name,redScore:0,blueScore:0}))
 						self.initMethod()
 					})
 			},
