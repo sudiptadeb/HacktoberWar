@@ -309,7 +309,7 @@ export const  conf = {
     randomTimeGap : 1000,
     production :true,
     calculatePosition :false,
-    rankIconSize : 120,
+    rankIconSize : 170,
     warLogUrl : "https://wafer.zohosecurity.team/appsense/warlog",
     statusUrl : "http://172.24.117.157:8080/getscore"
 };
