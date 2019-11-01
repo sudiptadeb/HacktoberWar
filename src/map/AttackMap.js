@@ -81,7 +81,7 @@ class AttackMap {
                         } catch (e) {
                         }
                     })
-                }, i && attackWaveGap);
+                }, i * attackWaveGap);
                 console.log('time',i && attackWaveGap)
             }
 
