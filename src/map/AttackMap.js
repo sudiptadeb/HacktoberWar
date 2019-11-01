@@ -10,6 +10,7 @@ let teamNameIdMap = {};
 let maxIntensity = localStorage.maxIntensity || 10;
 let width, height, teams, redTeamMapping, conf,blueTeamMapping ;
 
+import {shuffle} from "lodash";
 
 class AttackMap {
     constructor(container) {
@@ -44,20 +45,37 @@ class AttackMap {
             //     debugger
             // }
 
+            let incList = [];
+            for(let i=0;i<fullList.length;i++){
+                let each =fullList[i];
+                for(let j=0;j<conf.asteroidIncrementFactor;j++){
+                    incList.push(each)
+                }
+            }
+            console.log("-------------------")
+            console.log(fullList.length)
+            fullList =shuffle(incList);
+            console.log(fullList.length)
+
             noOfWaves = Math.min(noOfWaves, fullList.length);
             let attackWaveGap = conf.requestAccessInfoForEvery/noOfWaves;
 
             let objectPerWave = fullList.length / noOfWaves;
+
             for (let i = 0; i < noOfWaves; i++) {
                 let list = fullList.slice(Math.ceil(i * objectPerWave), Math.ceil((i + 1) * objectPerWave));
+
                 setTimeout(() => {
-                    list.forEach((obj, i) => {
+                    console.log("timeout",i,list.length,(new Date()).getTime())
+
+                    list.forEach((obj) => {
                         try {
                             let key = Object.keys(obj)[0];
                             let temp = key.split('-')
                             let team1 = temp[0];
                             let team2 = temp[1];
-                            this.drawCureve(teamNameIdMap[redTeamMapping[team1]], teamNameIdMap[blueTeamMapping[team2]], obj[key]);
+
+                            this.drawCureve(this.getRandomTeam(team1), teamNameIdMap[blueTeamMapping[team2]], obj[key]);
 
                         } catch (e) {
                         }
@@ -69,6 +87,29 @@ class AttackMap {
         setTimeout(() => {
             this.run()
         }, conf.requestAccessInfoForEvery)
+    }
+    getRandomTeam(val){
+        let res = teamNameIdMap[redTeamMapping[val]];
+        if(!this.availList){
+            this.availList =[];
+            this.teams.forEach((each,i)=>{
+                this.availList.push(i);
+            })
+        }
+        if(res!==undefined){
+            this.randomTeamMap[val] = res;
+            this.availList.splice(this.availList.indexOf(res),1)
+            return res;
+        }
+
+        this.randomTeamMap = this.randomTeamMap || {};
+        if(this.randomTeamMap[val]===undefined){
+            let ind =Math.floor(this.availList.length * Math.random());
+            this.randomTeamMap[val]=this.availList[ind];
+            this.availList.splice(ind,1)
+
+        }
+        return this.randomTeamMap[val];
     }
 
     fireworkAt(location){
@@ -149,6 +190,7 @@ class AttackMap {
         if (intensity > maxIntensity) {
             localStorage.maxIntensity = maxIntensity = intensity;
         }
+
         let fromTeam = this.teams[from];
         let toTeam = this.teams[to];
         if(!fromTeam || !toTeam){
